@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Sign Up </title>
+    <link rel="stylesheet" href="./css/signup.css">
+</head>
+<body>
+	<header>
+		
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="../index.html">Home</a></li>
+					<li class="current"><a href="signup.html">Sign Up</a></li>
+					<li><a href="signin.html">Log In</a></li>
+                    
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<section id="main">
+		<div class="container">
+			<article id="main-article">
+				<h2 class="page-title">Use this Form to Sign Up</h2>
+				<form class="form1">
+					<div>
+						<label>First Name</label><br>
+						<input type="text">
+					</div>
+					<div>
+						<label>Last Name</label><br>
+						<input type="text">
+					</div>
+					<div>
+						<label>Email</label><br>
+						<input pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,})$">
+					</div>
+					<div>
+						<label>Password</label><br>
+						<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Your password must have at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required>
+					</div>
+					<div>
+						<label>Confirm Your Password</label><br>
+						<input type="password">
+					</div>
+					
+					<button class="button_1" type="submit" formaction="./userDashboard.html">Sign Up</button>
+					
+					 <div class="containerSignin">
+					 	<p>Already have an account? <a href="signin.html">Sign in</a></p>
+					 </div>
+				</form>
+				
+			</article>
+		</div>
+	</section>
+</body>
+</html>
