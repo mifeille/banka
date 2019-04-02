@@ -1,0 +1,187 @@
+body{
+	font: 15px/1.5 Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+	background: url("../img/abstracte-back.jpg");
+}
+/*Global*/
+.container{
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+}
+.container h1{
+	margin-top: 5%;
+	text-align: center;
+	font-size: 38px;
+	color: #ffffff;
+	font-family: Georgia, "Times New Roman", Times, serif;	
+}
+header ul{
+	margin: 0;
+	padding: 0;
+}
+.button_1{
+height: 38px;
+background: #68228b;
+font-size: 18px;
+border: 0;
+margin-top: 20px;
+margin-bottom: 20px;
+padding-left: 20px;
+padding-right: 20px;
+color: #ffffff;
+border-radius: 10px;
+cursor: pointer;
+}
+
+.form1{
+	margin-top: 7%;
+}
+.form1 input{
+	padding: 4px;
+	width: 40%;
+	height: 25px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px #68228b solid;
+	border-radius: 10px;
+}
+ 
+label {
+ width: 35%;
+ font-family: Georgia, "Times New Roman", Times, serif;
+ font-size: 18px;
+ float: left;
+ color: #333;
+ text-align: right;
+ margin-top: 30px;
+ }
+
+
+/*Header*/
+header{
+width: 100%;
+background: #68228b;
+color: #ffffff;
+padding-top: 30px;
+min-height: 70px;
+border-bottom: #00536f 1px solid;
+}
+/*header links*/
+header a{
+	padding: 10px;
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 18px;
+}
+/*to make the menu horizontal*/
+
+header li{
+	float: left;
+	display: inline;
+	padding: 0 20px 0 20px;
+}
+/*for tne nav*/
+header #branding{
+	float: left;
+}
+header #branding h1{
+	margin: 0;
+}
+header nav{
+	float: right;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+header #search{
+	float: right;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+header #search input{
+	width: 250px;
+}
+header .current a{
+	font-weight: bold;
+	border: 1px #ffffff solid;
+	border-radius: 10px;
+	padding: 10px;
+
+}
+header a:hover{
+	font-weight: bold;
+	border: 1px #ffffff solid;
+	border-radius: 10px;
+}
+
+/*main sign up*/
+#main{
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+	text-align: center;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+article#main-article{
+	border: #68228b 2px solid;
+	background-color: #ffffff;
+	border-radius: 10px;
+}
+
+.container h2{
+	margin-top: 6%;
+	margin-bottom: 6%;
+	color: #68228b;
+	font-size: 24px;
+}
+/*media queries*/
+@media(max-width: 768px){
+header #branding,
+header nav,
+header nav ul,
+header nav ul li,
+header a:hover,
+header .current a,
+header a,
+.container,
+label,
+#search,
+#main,
+article#main-col,
+aside#sidebar,
+aside#sidebarright,
+aside#sidebarc,
+aside#sidebar_admin{
+	width: 100%;
+	float: none;
+	text-align: center;
+}
+header li{
+	display: inline-block;
+	margin-bottom: 20px;
+	
+}
+.form1 input{
+	width: 80%;
+}
+.form1 p{
+	margin-bottom: 55px;
+}
+#main{
+	margin: 0;
+}
+#search{
+	margin-bottom: 20px;
+}
+
+
+#sidebar_admin{
+	height: auto;
+	margin-right: 10px;
+	margin-bottom: 40px;
+
+}
+
+}
