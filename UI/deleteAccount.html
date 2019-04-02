@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Dashboard</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="admin.html">Sign Out</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<aside id="sidebar_admin">
+		<ul>
+                <li><a href="adminDashboard.html">All Bank accounts</a></li>
+                <li><a href="dormantAccounts.html">Activate Account</a></li>
+                <li><a href="activeAccounts.html">Deactivate Account</a></li>
+                <li class="currentadmin"><a href="deleteAccount.html">Delete Account</a></li>
+                <li><a href="createStaff.html">Create Account</a></li>					
+		</ul>
+	</aside>
+	
+	<section class="showAccount">
+            <fieldset>
+                <legend class="details">Account Details</legend>
+                <div class="number">
+                    <legend>Account Number:</legend>
+                    <p>4003830171874018</p>
+                </div>
+                <div class="number">
+                    <legend>Created On:</legend>
+                    <p>26/03/2019</p>
+				</div>
+				<div class="number">
+						<legend>Owner:</legend>
+						<p>Niwemuhuza Mireille</p>
+					</div>
+				<div class="number">
+					<legend>Type:</legend>
+					<p>Current Account</p>
+				</div>
+				<div class="number">
+					<legend>Status:</legend>
+					<p>Active</p>
+				</div>
+            </fieldset>
+            
+            <div class="buttons">
+                <button class="button_1">Delete</button>
+            </div>
+                         
+        </section> 
+</body>
+
+</html>
