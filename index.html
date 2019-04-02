@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Welcome </title>
+    <link rel="stylesheet" href="./UI/css/index.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>	
+			</div>
+			<nav>
+				<ul>
+					<li class="current"><a href="index.html">Home</a></li>
+					<li><a href="signup.html">Sign up</a></li>
+					<li><a href="signin.html">Log In</a></li>
+					<li><a href="admin.html">Staff Panel</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="container">
+		<p>A light-weight core banking application that powers banking operations.</p>
+</div>
+<div class="openAccount">
+	<h3 class="mySlides">Open Your Account NOW!</h3>
+	<h3 class="mySlides"><a href="signup.html">Sign Up</a></h3>
+	<h3 class="mySlides"><a href="signin.html">Log In</a></h3>
+</div>
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 3000); 
+}
+</script>
+
+</body>
+</html> 
