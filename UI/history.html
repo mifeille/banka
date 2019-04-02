@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Dashboard</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>
+			</div>
+			<nav>
+				<ul>
+          <li><a href="../index.html">Home</a></li>
+					<li><a href="signup.html">Sign Up</a></li>
+					<li><a href="signin.html">Log In</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<aside id="sidebar_admin">
+		<ul>
+			<li><a href="userDashboard.html">Bank Account profile</a></li>
+			<li><a href="createAccount.html">Create Account</a></li>
+			<li  class="currentadmin"><a href="history.html">Account History</a></li>
+						
+		</ul>
+	</aside>
+	<section id="main">
+			<h1>Bank Account History</h1>
+			    <div class="scale_table" style="overflow-x:auto;">
+					<table class="tableHistory">
+                        <tr>
+                            <td class="historyDetails"><b>Date</b></td>
+                            <td class="historyDetails"><b>Branch</b></td>
+                            <td class="historyDetails"><b>Debit</b></td>
+                            <td class="historyDetails"><b>Credit</b></td>
+							<td class="historyDetails"><b>Total</b></td>
+							<td class="historyDetails"><b>Currency</b></td>
+
+						</tr>
+						<tr>
+							<td class="historyDetails">27/03/2019</td>
+							<td class="historyDetails">Remera</td>
+							<td class="historyDetails">100.000</td>
+							<td class="historyDetails">-</td>
+							<td class="historyDetails">100.000</td>
+							<td class="historyDetails">RwF</td>
+						</tr>
+						<tr>
+							<td class="historyDetails">27/03/2019</td>
+							<td class="historyDetails">Kacyiru</td>
+							<td class="historyDetails">-</td>
+							<td class="historyDetails">20.000</td>
+							<td class="historyDetails">80.000</td>
+							<td class="historyDetails">RwF</td>
+						</tr>
+						<tr>
+							<td class="historyDetails">27/03/2019</td>
+							<td class="historyDetails">Kicukiro</td>
+							<td class="historyDetails">150.000</td>
+							<td class="historyDetails">-</td>
+							<td class="historyDetails">230.000</td>
+							<td class="historyDetails">RwF</td>
+						</tr>
+                    </table>
+           </section>
+        </body>
+
+    </html>
