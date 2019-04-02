@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Create Admin or Staff </title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+	<header>
+		
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>
+			</div>
+			<nav>
+                    <ul>
+                        <li><a href="admin.html">Sign Out</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <aside id="sidebar_admin">
+            <ul>
+                <li><a href="staffDashboard.html">All Bank accounts</a></li>
+                <li  class="currentadmin"><a href="transaction.html">Transaction</a></li>
+                <li><a href="deleteAccountStaff.html">Delete Account</a></li>				
+            </ul>
+        </aside>
+	<section id="transaction">
+            <div class="title">
+                    <h1>Transaction</h1>
+            </div>
+                <div class="transactionDetails">
+                    <fieldset class="transDetails">
+                        <legend>Type</legend>
+                        <input list="types">
+                        <datalist id="types">
+                            <option value="Credit">
+                            <option value="Debit">
+                          </datalist>
+                    </fieldset>
+                    <fieldset class="accNumber">
+                        <legend>Account Number</legend>
+                        <input type="text">
+                    </fieldset>
+                    <fieldset class="amount">
+                            <legend> Amount</legend>
+                            <input type="text">
+                    </fieldset>
+                </div>
+                <div>
+                    <button class="saveTransaction">Save</button>
+                </div>
+	</section>
+</body>
+</html>
