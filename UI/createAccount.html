@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Dashboard</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>
+			</div>
+			<nav>
+				<ul>
+          <li><a href="../index.html">Home</a></li>
+					<li><a href="signup.html">Sign Up</a></li>
+					<li><a href="signin.html">Log In</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<aside id="sidebar_admin">
+		<ul>
+			<li><a href="userDashboard.html">Bank Account profile</a></li>
+			<li class="currentadmin"><a href="createAccount.html">Create Account</a></li>
+			<li><a href="history.html">Account History</a></li>
+						
+		</ul>
+	</aside>
+<section id="main">
+	<h1>Create Account</h1>
+		<div>
+		<label class="userLabel">Select the Account Type</label><br>
+        <input list="accountType">
+            <datalist id="accountType">
+                <option value="Current Account">
+                <option value="Savings Account">
+            </datalist>
+		</div>
+		<button class="button_1" type="submit">Create</button>
+    </section>
+</body>
+</html>

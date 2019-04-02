@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="BANKA">
+	<meta name="author" content="Niwemuhuza Mireille">
+    <title> BANKA | Dashboard</title>
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1>Welcome to Banka</h1>
+			</div>
+			<nav>
+				<ul>
+          <li><a href="../index.html">Home</a></li>
+					<li><a href="signup.html">Sign Up</a></li>
+					<li><a href="signin.html">Log In</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<aside id="sidebar_admin">
+		<ul>
+			<li class="currentadmin"><a href="userDashboard.html">Bank Account profile</a></li>
+			<li><a href="createAccount.html">Create Account</a></li>
+			<li><a href="history.html">Account History</a></li>
+						
+		</ul>
+	</aside>
+	<section id="main">
+			<h1>All Bank Accounts</h1>
+			<div class="table_scale" style="overflow-x:auto;">
+			<table class="user_table" >
+			  <tbody>
+			
+				<tr class="row">
+					<td class="accountId"></td>
+					<td class="accountId"><b>Account Id</b></td>
+					<td class="accountNumber"><b>Account Number</b></td> <td class="createdOn"><b>Created On</b></td> <td class="owner"><b>Owner</b> </td> <td class="type"><b>Type</b></td> <td class="status"><b>Status</b></td> <td class="balance"><b>Balance</b></td>
+				</tr>
+			  <tr class="row">
+				<td><input type="checkbox"></td>
+				<td class="accountId">1</td>
+				<td class="accountNumber">4003830171874018</td> <td class="createdOn">26/03/2019 </td> <td class="owner">Niwemuhuza Mireille </td> <td class="type">Current Account</td> <td class="status">Active</td> <td class="balance">39.000RFW </td>
+			  </tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	
+</body>
+
+</html>
