@@ -14,6 +14,15 @@ const userData = [
         email: "kalima@banka.com",
         password : "$2b$10$1yJje0OVe67ij5fnA8mHDumJIdhZKNUHjghuhxX5p1eZM17ABOJ12",
         type: "client"
+    },
+
+    {
+        id:3,
+        firstName: "Blaise",
+        lastName : "Kalima",
+        email: "kalimaB@banka.com",
+        password : "$2b$10$1yJje0OVe67ij5fnA8mHDumJIdhZKNUHjghuhxX5p1eZM17ABOJ12",
+        type: "client"
     }
     
 
