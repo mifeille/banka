@@ -11,6 +11,6 @@ myRouter.post('/auth/signup',users.registerUser);
 myRouter.post('/auth/signin',users.loginUser);
 myRouter.get('/accounts',accounts.getAllAccounts);
 myRouter.post('/accounts',accounts.createAccount);
-
+myRouter.patch('/account/:accountNumber',accounts.updateAccount);
 
 export default myRouter;
