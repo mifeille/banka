@@ -58,8 +58,8 @@ export default class authUsers{
                 accounts[0].status=req.body.status;
             }
             let accountNumb=accounts[0].accountNumber,firstName=accounts[0].firstName,lastName=accounts[0].lastName,email=accounts[0].email,type=accounts[0].type,status=accounts[0].status,openingBalance=accounts[0].openingBalance;
-            res.status(200).json({
-                status :201,
+            return res.status(200).json({
+                status :200,
                 data: {accountNumb,firstName,lastName,email,type,status,openingBalance}
             });
         }
@@ -70,4 +70,21 @@ export default class authUsers{
             });
         }
     }
+
+    static deleteAccount(req, res){
+        const accountNumber=req.params.accountNumber;
+        const accounts = allAccounts.filter(account => account.accountNumber == accountNumber);
+        if(accounts.length==1){
+            delete allAccounts[accountNumber-1];
+            return res.status(200).json({
+                status :200,
+                message:"Bank account successfully deleted"
+            });
+         } else {
+             return res.status(404).json({
+                status:404,
+                message: "Bank account entered not found"
+            });
+        }
+     }
 }

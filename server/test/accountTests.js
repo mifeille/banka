@@ -79,4 +79,26 @@ it('should give an error if the bank account to update is not found', (done) => 
       done();
     });
 });
+
+it('should let a staff/admin delete a specific bank account', (done) => {
+  chai.request(server)
+  .delete('/api/v1/accounts/3')
+  .send()
+  .end((err, res) => {
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an('object');
+    done();
+  });
+});
+
+it('should notify the staff/admin when the bank account to delete is not found', (done) => {
+  chai.request(server)
+  .delete('/api/v1/accounts/8')
+  .send()
+  .end((err, res) => {
+    expect(res).to.have.status(404);
+    expect(res.body).to.be.an('object');
+    done();
+  });
+});
 })
