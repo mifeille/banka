@@ -6,7 +6,8 @@ const accountData = [
         email: "uwimana@banka.com",
         type: "savings",
         status:"active",
-        openingBalance:0
+        openingBalance:0,
+        balance: 20000
     },
     {
         accountNumber: 2,
@@ -15,7 +16,8 @@ const accountData = [
         email: "uwimana@banka.com",
         type: "current",
         status:"draft",
-        openingBalance:0
+        openingBalance:0,
+        balance: 0
     },
 
     {
@@ -25,7 +27,8 @@ const accountData = [
         email: "kalima@banka.com",
         type: "current",
         status:"dormant",
-        openingBalance:0
+        openingBalance:0,
+        balance: 0
     },
 
     {
@@ -35,7 +38,8 @@ const accountData = [
         email: "kalima@banka.com",
         type: "savings",
         status:"active",
-        openingBalance:0
+        openingBalance:0,
+        balance: 0
     }
 ]
 
