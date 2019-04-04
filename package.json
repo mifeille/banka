@@ -32,7 +32,8 @@
     "start": "nodemon --exec babel-node server/server.js",
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
-    
+    "test:cov": "NODE_ENV=test NODE_PATH=./src babel-node -- ./node_modules/.bin/isparta cover -x 'server/*.js' --include '**/*.js' --include '**/*.js' _mocha -- 'server/test/*.js' --recursive --require 'test/*.js'"
+  }
   },
   "engines": {
     "node": "10.15.3"
