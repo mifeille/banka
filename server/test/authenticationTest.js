@@ -140,6 +140,23 @@ it('should not register user with an empty First Name field ', (done) => {
       done();
     });
   });
+
+  it('should not register a user without password', (done) => {
+    chai.request(server)
+    .post('/api/v1/auth/signup')
+    .send( 
+      {
+        firstName: "Richard",
+        lastName : "Kalisa",
+        email: "kalisa@banka.com",
+        password: "",
+        confirmPassword: "kalisa1!"
+    })
+    .end((err, res) => {
+      expect(res.body).to.be.an('object');
+      done();
+      });
+  });
   
   it('should register a password that has at least 6 characters ', (done) => {
     chai.request(server)
@@ -174,7 +191,25 @@ it('should not register user with an empty First Name field ', (done) => {
       done();
     });
   });
+
+  it('should not register a user without confirming his password  ', (done) => {
+    chai.request(server)
+    .post('/api/v1/auth/signup')
+    .send({
+      firstName: "Richard",
+      lastName : "Kalisa",
+      email: "kalisa@banka.com",
+      password: "kalisa11",
+      confirmPassword: ""
+    })
+    .end((err, res) => {
+      expect(res).to.have.status(400);
+      expect(res.body).to.be.an('object');
+      done();
+    });
+  });
 });
+
 
 describe('User login', () => {
   it('should login a user without the correct credentials', (done) => {
@@ -190,19 +225,6 @@ describe('User login', () => {
         expect(res.body).to.be.an('object');
         done();
       });
-    });
-    
-    it('should not login user without password', (done) => {
-      chai.request(server)
-      .post('/api/v1/auth/signin')
-      .send({
-        email: "kalima@banka.com",
-        password : ""
-      })
-      .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        done();
-        });
     });
     
     it('should not log in user with an integer email ', (done) => {
@@ -268,6 +290,20 @@ describe('User login', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+    });
+
+    it('should not login user with no password', (done) => {
+      chai.request(server)
+      .post('/api/v1/auth/signin')
+      .send({ 
+        email: "kalim@banka.com",
+        password : ""
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         done();
       });
