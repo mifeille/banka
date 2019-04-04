@@ -5,7 +5,21 @@ import server from '../server';
 let expect = chai.expect;
 chai.use(chaiHttp);
 
+describe('Users', () => {
+  it('should be able to fetch all users', (done) => {
+    chai.request(server)
+    .get('/api/v1/users')
+    .send()
+    .end((err, res) => {
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      done();
+    });
+});
+})
+
 describe('User signup', () => {
+
   it('should not register a user with an empty email field', (done) => {
     chai.request(server)
     .post('/api/v1/auth/signup')
