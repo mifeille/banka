@@ -1,3 +1,3 @@
 # banka
 
-[![Build Status](https://travis-ci.org/mifeille/banka.svg?branch=develop)](https://travis-ci.org/mifeille/banka) [![Coverage Status](https://coveralls.io/repos/github/mifeille/banka/badge.svg?branch=develop)](https://coveralls.io/github/mifeille/banka?branch=develop)
+[![Build Status](https://travis-ci.org/mifeille/banka.svg?branch=develop)](https://travis-ci.org/mifeille/banka)  [![Coverage Status](https://coveralls.io/repos/github/mifeille/banka/badge.svg?branch=develop)](https://coveralls.io/github/mifeille/banka?branch=develop)  [![Maintainability](https://api.codeclimate.com/v1/badges/6f9d176365640932903b/maintainability)](https://codeclimate.com/github/mifeille/banka/maintainability)
