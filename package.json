@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "scripts": {
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 5000 server/test/*.js --exit",
+    "start": "nodemon --exec babel-node server/server.js",
+    "build": "babel server/server.js --out-dir build",
+    "serve": "node server/server.js",
+    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
+  },
+  "engines": {
+    "node": "10.15.3"
+  },
   "dependencies": {
     "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
@@ -28,16 +38,7 @@
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0"
   },
-  "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 5000 server/test/*.js --exit",
-    "start": "nodemon --exec babel-node server/server.js",
-    "build": "babel server/server.js --out-dir build",
-    "serve": "node server/server.js",
-    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
-  },
-  "engines": {
-    "node": "10.15.3"
-  },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mifeille/banka.git"
