@@ -12,7 +12,9 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "lodash.isempty": "^4.4.0",
-    "validator": "^10.11.0"
+    "validator": "^10.11.0",
+    "nodemon": "^1.18.10"
+    
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -33,7 +35,6 @@
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
-
   },
   "engines": {
     "node": "10.15.3"
