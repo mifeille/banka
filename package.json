@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.isempty": "^4.4.0",
     "validator": "^10.11.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "@babel/node": "^7.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
