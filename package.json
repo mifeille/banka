@@ -32,7 +32,7 @@
     "start": "nodemon --exec babel-node server/server.js",
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
-    
+    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
   }
   },
   "engines": {
