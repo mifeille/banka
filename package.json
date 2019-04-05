@@ -31,7 +31,9 @@
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 5000 server/test/*.js --exit",
     "start": "nodemon --exec babel-node server/server.js",
     "build": "babel server/server.js --out-dir build",
-    "serve": "node server/server.js"
+    "serve": "node server/server.js",
+    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
+
   },
   "engines": {
     "node": "10.15.3"
