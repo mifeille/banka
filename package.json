@@ -33,7 +33,7 @@
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
-  }
+
   },
   "engines": {
     "node": "10.15.3"
