@@ -24,9 +24,6 @@ const userData = [
         password : "$2b$10$1yJje0OVe67ij5fnA8mHDumJIdhZKNUHjghuhxX5p1eZM17ABOJ12",
         type: "client"
     }
-    
-
-
 ]
 
 export {userData};
