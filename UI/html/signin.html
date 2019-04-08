@@ -6,7 +6,7 @@
 	<meta name="description" content="BANKA">
 	<meta name="author" content="Niwemuhuza Mireille">
     <title> BANKA | Sign In </title>
-    <link rel="stylesheet" href="./css/signin.css">
+    <link rel="stylesheet" href="../css/signin.css">
 </head>
 <body>
 	<header>
@@ -27,15 +27,21 @@
 	<section id="main">
 		<div class="container">
 			<article id="main-article">
-				<h2 class="page-title">Reset Password</h2>
+				<h2 class="page-title">Log In Page</h2>
 				<form class="form1">
 					<div>
-						<p>Forgotten your password? Enter your recovery email address and we will email instructions to reset a new one.</p>
+						<label>Email</label><br>
+						<input pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,})$">
 					</div>
 					<div>
-						<input type="text" placeholder="recovery email">
+						<label>Password</label><br>
+						<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Your password must have at least one number and one uppercase and lowercase letter, and at least 6 or more characters" required>
 					</div>
-					<button class="button_1" type="submit" formaction="./userDashboard.html">Reset Password</button>
+					<button class="button_1" type="submit" formaction="./userDashboard.html">Sign In</button>
+					<div class="container signin">
+					 	<p>Forgot your 
+					 		password ? <a href="resetpsw.html">Reset Password</a></p>
+					 </div>
 				</form>
 			</article>	
 		</div>

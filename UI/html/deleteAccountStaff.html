@@ -6,7 +6,7 @@
 	<meta name="description" content="BANKA">
 	<meta name="author" content="Niwemuhuza Mireille">
     <title> BANKA | Dashboard</title>
-    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
 	<header>
@@ -23,15 +23,13 @@
 	</header>
 	<aside id="sidebar_admin">
 		<ul>
-			<li><a href="adminDashboard.html">All Bank accounts</a></li>
-			<li><a href="dormantAccounts.html">Activate Account</a></li>
-			<li><a href="activeAccounts.html">Deactivate Account</a></li>
-			<li class="currentadmin"><a href="deleteAccount.html">Delete Account</a></li>
-			<li><a href="createStaff.html">Create Account</a></li>				
+            <li><a href="staffDashboard.html">All Bank accounts</a></li>
+            <li><a href="transaction.html">Transaction</a></li>
+            <li class="currentadmin"><a href="deleteAccountStaff.html">Delete Account</a></li>			
 		</ul>
 	</aside>
 	<section id="showcase1">
-			<div style="overflow-x:auto;">
+		<div style="overflow-x:auto;">
 			<h1>Select the Bank Account to Delete</h1>
 			<table class="table-striped">
 			  <tbody>
@@ -43,8 +41,8 @@
 				</tr>
 			  <tr class="row">
 				<td><input type="checkbox"></td>
-				<td class="accountId"><a href="deleteAccount.html">1</a></td>
-				<td class="accountNumber"><a href="deleteAccount.html">4003830171874018</a> </td> <td class="createdOn">26/03/2019 </td> <td class="owner">Niwemuhuza Mireille </td> <td class="type">Current Account</td> <td class="status">Active</td>
+				<td class="accountId"><a href="staffDelete.html">1</a></td>
+				<td class="accountNumber"><a href="staffDelete.html">4003830171874018</a> </td> <td class="createdOn">26/03/2019 </td> <td class="owner">Niwemuhuza Mireille </td> <td class="type">Current Account</td> <td class="status">Active</td>
 			  </tr>
 			  <tr class="row">
 					<td><input type="checkbox"></td>
@@ -61,10 +59,9 @@
 							<td class="accountId">4</td>
 							<td class="accountNumber">4003830171874700 </td> <td class="createdOn">29/03/2019 </td> <td class="owner">Umulisa Mireille </td> <td class="type">Current Account</td> <td class="status">Draft</td>
 						  </tr>
-			  
 				</tbody>
 			</table>
-			</div>
+		</div>
 	</section>
 	
 </body>

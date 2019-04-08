@@ -2,7 +2,7 @@ body{
 	font: 15px/1.5 Arial, Helvetica, sans-serif;
 	padding: 0;
 	margin: 0;
-	background: url("../img/digitabBank.jpg") 0 35%;
+	background: url("../assets/digitabBank.jpg") 0 35%;
 	
 	
 }
@@ -27,6 +27,7 @@ body{
 	margin: auto;
 	overflow: hidden;
 }
+
 header ul{
 	margin: 0;
 	padding: 0;
@@ -67,6 +68,9 @@ header li{
 }
 
 /*for tne nav*/
+header .icon{
+	display: none;
+}
 header #branding{
 	
 	float: left;
@@ -149,10 +153,40 @@ header a,
 	float: none;
 	text-align: center;
 }
+header{
+	min-height: 30px;
+	padding:10px;
+
+}
+
+
+header #branding h1{
+	width: 80%;
+	font-size: 26px;
+}
+header a.icon {
+	background:#68228b;
+	font-size: 26px;
+	display: block;
+	width: 12%;
+	position: absolute;
+	right: 0;
+	top: 0;
+  }
 header li{
-	display: inline-block;
+	display: block;
 	margin-bottom: 20px;
 	
+}
+.container p{
+   font-size: 40px; 	
+}
+
+.myMenu{
+	color: #ffffff;
+	padding: 10px;
+	text-decoration: none;
+	font-size: 18px;
 }
 .openAccount{
 	width: 80%;
