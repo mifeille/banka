@@ -47,6 +47,9 @@ cursor: pointer;
 	border: 1px #68228b solid;
 	border-radius: 10px;
 }
+.form1 p{
+	font-size: 18px;
+}
  
 label {
  width: 35%;
@@ -75,34 +78,28 @@ header a{
 	text-decoration: none;
 	font-size: 18px;
 }
-/*to make the menu horizontal*/
+/*for the nav*/
 
-header li{
-	float: left;
-	display: inline;
-	padding: 0 20px 0 20px;
+header .icon{
+	display: none;
 }
-/*for tne nav*/
+
+header .topnav{
+	
+	float: right;
+	margin-top: 20px;
+	margin-bottom: 10px;	
+}
+
 header #branding{
 	float: left;
 }
 header #branding h1{
 	margin: 0;
 }
-header nav{
-	float: right;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-header #search{
-	float: right;
-	margin-left: 20px;
-	margin-top: 10px;
-}
-header #search input{
-	width: 250px;
-}
-header .current a{
+
+#myLinks .current{
+	color: #ffffff;
 	font-weight: bold;
 	border: 1px #ffffff solid;
 	border-radius: 10px;
@@ -136,6 +133,7 @@ article#main-article{
 	color: #68228b;
 	font-size: 24px;
 }
+
 /*media queries*/
 @media(max-width: 768px){
 header #branding,
@@ -150,38 +148,88 @@ label,
 #search,
 #main,
 article#main-col,
-aside#sidebar,
-aside#sidebarright,
-aside#sidebarc,
-aside#sidebar_admin{
+.form1{
 	width: 100%;
 	float: none;
 	text-align: center;
 }
-header li{
-	display: inline-block;
-	margin-bottom: 20px;
+header{
+	min-height: 30px;
+	padding:10px;
+
+}
+header .topnav{
+	float: none;
+}
+header a.icon {
+	background:#68228b;
+	font-size: 28px;
+	display: block;
+	width: 12%;
+	position: absolute;
+	right: 0;
+	top: 1.5%;
+  }
+
+.nav{
+	display: none;
+}
+
+
+.topnav {
+	overflow: hidden;
+	background-color: #68228b;
+	position: relative;
+  }
+  
+  .topnav #myLinks {
+	display: none;
+  }
+  
+  .topnav a {
+	color: white;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	display: block;
+	float: none;
+  }
+  
+  .topnav a.icon {
+	background:#68228b;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+  }
+ 
+  .topnav a:hover {
+	background-color: #68228b;
+	color: #ffffff;
+	font-weight: bold;
+
+  }
+  .topnav a{
 	
+	padding: 5px;
+	
+	
+}
+
+.container h1{
+	font-size: 34px;
+	margin-top: 5%;
+	text-align: left;
 }
 .form1 input{
 	width: 80%;
 }
-.form1 p{
-	margin-bottom: 55px;
-}
+
 #main{
 	margin: 0;
 }
-#search{
-	margin-bottom: 20px;
-}
-
-
-#sidebar_admin{
-	height: auto;
-	margin-right: 10px;
-	margin-bottom: 40px;
-
+.container{
+	width: 100%;
 }
 
 }

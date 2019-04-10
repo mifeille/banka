@@ -79,26 +79,31 @@ header li{
 	padding: 0 20px 0 20px;
 }
 /*for tne nav*/
+header nav{
+	float: right;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+header .icon{
+	display: none;
+}
+
+header .topnav{
+	
+	float: right;
+	margin-top: 20px;
+	margin-bottom: 10px;	
+}
+
 header #branding{
 	float: left;
 }
 header #branding h1{
 	margin: 0;
 }
-header nav{
-	float: right;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-header #search{
-	float: right;
-	margin-left: 20px;
-	margin-top: 10px;
-}
-header #search input{
-	width: 250px;
-}
-header .current a{
+
+#myLinks .current{
+	color: #ffffff;
 	font-weight: bold;
 	border: 1px #ffffff solid;
 	border-radius: 10px;
@@ -111,25 +116,26 @@ header a:hover{
 	border-radius: 10px;
 }
 
+
 /*admin dashboard*/
 #sidebar_admin{
 	position: absolute; 
 	top: 100px;
-  	bottom: 0;
+  bottom: 0;
 	width: 20%;
-    padding: 10px;
-    float: left;
-    background: #26162c;
-    border-right: 2px #a28bad solid;
-    box-shadow: 16px 0px 14px #68228b;
+  padding: 10px;
+  float: left;
+  background: #26162c;
+  border-right: 2px #a28bad solid;
+  box-shadow: 16px 0px 14px #68228b;
 }
 #sidebar_admin a{
-    width: 19%;
-    text-decoration: none;
-    margin-top: 20px;
-    padding: 10px;
+  width: 19%;
+  text-decoration: none;
+  margin-top: 20px;
+  padding: 10px;
 	color: #ffffff;
-    font-size: 18px;
+  font-size: 18px;
     
 }
 aside li{
@@ -417,7 +423,6 @@ article#main-col,
 article#main-article,
 aside#sidebar,
 aside#sidebarright,
-aside#sidebarc,
 aside#sidebar_admin,
 #branding,
 #main,
@@ -436,7 +441,69 @@ header li{
 	margin-bottom: 20px;
 	
 }
+header{
+	min-height: 30px;
+	padding:10px;
 
+}
+header .topnav{
+	float: none;
+}
+header a.icon {
+	background:#68228b;
+	font-size: 28px;
+	display: block;
+	width: 12%;
+	position: absolute;
+	right: 0;
+	top: 1.5%;
+  }
+
+.nav{
+	display: none;
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: #68228b;
+	position: relative;
+  }
+  
+  .topnav #myLinks {
+	display: none;
+  }
+  
+  .topnav a {
+	color: white;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	display: block;
+	float: none;
+  }
+  
+  .topnav a.icon {
+	background:#68228b;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+  }
+ 
+  .topnav a:hover {
+	background-color: #68228b;
+	color: #ffffff;
+	font-weight: bold;
+
+  }
+  .topnav a{
+	padding: 5px;	
+}
+.container h1{
+	font-size: 34px;
+	margin-top: 5%;
+	text-align: left;
+}
 #main,
 #showcase1,
 fieldset,
@@ -450,7 +517,7 @@ fieldset,
 width: 80%;
 }
 aside#sidebar_admin{
-	width: 95%;
+	width: 100%;
 	position: relative;
 	border-right: 2px #a28bad solid;
     box-shadow: none;
@@ -467,8 +534,12 @@ aside#sidebar_admin{
 }
 #sidebar_admin{
 	height: auto;
-	margin-bottom: 40px;
-
+	margin-bottom: 10px;
+}
+#sidebar_admin{
+	
+	top: 0;
+  	
 }
 
 }
