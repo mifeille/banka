@@ -6,23 +6,25 @@
 	<meta name="description" content="BANKA">
 	<meta name="author" content="Niwemuhuza Mireille">
     <title> BANKA | Sign Up </title>
-    <link rel="stylesheet" href="../css/signup.css">
+	<link rel="stylesheet" href="../css/signup.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<header>
-		
 		<div class="container">
 			<div id="branding">
-				<h1>Welcome to Banka</h1>
+				<h1>Welcome to Banka</h1>	
 			</div>
-			<nav>
-				<ul>
-					<li><a href="../index.html">Home</a></li>
-					<li class="current"><a href="signup.html">Sign Up</a></li>
-					<li><a href="signin.html">Log In</a></li>
-                    
-				</ul>
-			</nav>
+			<div class="topnav">
+				<div id="myLinks">
+					<a href="../index.html">Home</a>
+					<a  href="signup.html" class="current">Sign up</a>
+					<a  href="signin.html">Log In</a>
+				</div>
+			</div>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+				<i class="fa fa-bars"></i>
+			</a>
 		</div>
 	</header>
 	<section id="main">
@@ -53,7 +55,7 @@
 					
 					<button class="button_1" type="submit" formaction="./userDashboard.html">Sign Up</button>
 					
-					 <div class="containerSignin">
+					 <div>
 					 	<p>Already have an account? <a href="signin.html">Sign in</a></p>
 					 </div>
 				</form>
@@ -61,5 +63,6 @@
 			</article>
 		</div>
 	</section>
+	<script src="../js/script.js"></script>
 </body>
 </html>
