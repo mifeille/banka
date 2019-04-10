@@ -1,7 +1,7 @@
 import { Router } from "express";
 import users from "../controllers/userController";
 import accounts from "../controllers/accountController";
-import transactions from "../controllers/transactionController"
+import transactions from "../controllers/transactionController";
 
 
 
@@ -13,7 +13,7 @@ myRouter.post('/auth/signin',users.loginUser);
 
 myRouter.get('/accounts',accounts.getAllAccounts);
 myRouter.post('/accounts',accounts.createAccount);
-myRouter.patch('/account/:accountNumber',accounts.updateAccount);
+myRouter.patch('/accounts/:accountNumber',accounts.updateAccount);
 myRouter.delete('/accounts/:accountNumber',accounts.deleteAccount);
 
 myRouter.post('/transactions/:accountNumber/debit',transactions.debitAccount);

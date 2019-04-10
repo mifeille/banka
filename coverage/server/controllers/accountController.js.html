@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>46/46</span>
+        <span class='fraction'>47/47</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.5% </span>
+        <span class="strong">80% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>7/8</span>
+        <span class='fraction'>8/10</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>31/31</span>
+        <span class='fraction'>32/32</span>
       </div>
     </div>
     <p class="quiet">
@@ -135,7 +135,13 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,15 +193,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,7 +262,7 @@ export default class authUsers{
                     });
                 } else{
                     const account = {
-                        accountNumber:allAccounts.length +1,
+                        accountNumber:(allAccounts.length +1) + Math.floor(Math.random() * 5000000),
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         email: req.body.email,
@@ -279,15 +291,21 @@ export default class authUsers{
         try{
             const accountNumber=req.params.accountNumber;
             const accounts = allAccounts.filter(account =&gt; account.accountNumber == accountNumber);
-            console.log(accounts);
-            if(accounts.length==1){
-                accounts[0].status=req.body.status;
+            if(accounts[0].status === req.body.status){
+                return res.status(400).json({
+                    status :400,
+                    message: `This account is already ${req.body.status}`
+                });
             }
-            let accountNumb=accounts[0].accountNumber,firstName=accounts[0].firstName,lastName=accounts[0].lastName,email=accounts[0].email,type=accounts[0].type,status=accounts[0].status,openingBalance=accounts[0].openingBalance;
-            return res.status(200).json({
-                status :200,
-                data: {accountNumb,firstName,lastName,email,type,status,openingBalance}
-            });
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(accounts.length==1){
+                accounts[0].status=req.body.status;
+            
+                let accountNumb=accounts[0].accountNumber,firstName=accounts[0].firstName,lastName=accounts[0].lastName,email=accounts[0].email,type=accounts[0].type,status=accounts[0].status,openingBalance=accounts[0].openingBalance;
+                return res.status(200).json({
+                    status :200,
+                    data: {accountNumb,firstName,lastName,email,type,status,openingBalance}
+                });
+            }
         }
         catch(err){
             return res.status(404).json({
@@ -319,7 +337,7 @@ export default class authUsers{
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Apr 08 2019 17:45:46 GMT+0200 (Eastern European Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Apr 10 2019 23:47:12 GMT+0200 (Eastern European Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

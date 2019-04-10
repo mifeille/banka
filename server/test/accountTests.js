@@ -83,7 +83,7 @@ it('should not create a bank account if the user email is empty', (done) => {
 
 it('should let a staff/admin be able to activate or deactivate a bank account', (done) => {
     chai.request(server)
-    .patch('/api/v1/account/3')
+    .patch('/api/v1/accounts/3')
     .send({
         status: "active"
     })
@@ -94,9 +94,22 @@ it('should let a staff/admin be able to activate or deactivate a bank account', 
     });
 });
 
+it('should give an error when the bank account is already activated or dectivated', (done) => {
+  chai.request(server)
+  .patch('/api/v1/accounts/4')
+  .send({
+      status: "active"
+  })
+  .end((err, res) => {
+    expect(res).to.have.status(400);
+    expect(res.body).to.be.an('object');
+    done();
+  });
+});
+
 it('should give an error if the bank account to update is not found', (done) => {
     chai.request(server)
-    .patch('/api/v1/account/7')
+    .patch('/api/v1/accounts/7')
     .send({
         status: "active"
     })
