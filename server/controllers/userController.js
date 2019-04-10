@@ -92,10 +92,10 @@ export default class authUsers{
                             { 
                                 expiresIn: "24h"
                             });
-                            let email=req.body.email,password=hash;
+                            let id = users[0].id, firstName = users[0].firstName,lastName = users[0].lastName , email=req.body.email, password=hash;
                             return res.status(200).json({
                                 status:200,
-                                data: {token,email,password}
+                                data: {token, id, firstName, lastName, email,password}
                             });
                         }
                     });

@@ -23,8 +23,10 @@ export default class authUsers{
                         message: "Email not found"
                     });
                 } else{
+                    let bankAccount = users[0].id + "000" + Date.now();
+                    console.log(bankAccount);
                     const account = {
-                        accountNumber:(allAccounts.length +1) + Math.floor(Math.random() * 5000000),
+                        accountNumber:parseInt(bankAccount),
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         email: req.body.email,
