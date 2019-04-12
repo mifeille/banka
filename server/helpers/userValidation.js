@@ -5,6 +5,7 @@ export default class validateUser {
 
     static validateSignup (req, res){
         const allUsers = userData;
+        let whiteSpace = /\s/;
 
         if (validator.isEmpty(req.body.firstName)) {
            
@@ -33,6 +34,10 @@ export default class validateUser {
     
         if (validator.isEmpty(req.body.password)) {
             throw Error("Password is required");
+        }
+
+        if(whiteSpace.test(req.body.password)) {
+            throw Error("Password should not contain white spaces");
         }
 
         if (!validator.isLength(req.body.password, {

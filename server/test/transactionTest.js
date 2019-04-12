@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe('Debit a bank account', () => {
   it('should be able to debit a bank account', (done) => {
     chai.request(server)
-    .post('/api/v1/transactions/1/debit')
+    .post('/api/v1/transactions/10001555061257616/debit')
     .send({
         amount : 45000
     })
@@ -21,7 +21,7 @@ describe('Debit a bank account', () => {
 
 it('should not debit a draft or dormant account', (done) => {
     chai.request(server)
-    .post('/api/v1/transactions/2/debit')
+    .post('/api/v1/transactions/10001555061305898/debit')
     .send({
         amount : 45000
     })
@@ -34,7 +34,7 @@ it('should not debit a draft or dormant account', (done) => {
 
 it('should give an error when the bank account is not found', (done) => {
     chai.request(server)
-    .post('/api/v1/transactions/8/debit')
+    .post('/api/v1/transactions/100015550613058/debit')
     .send({
         amount : 45000
     })
@@ -49,7 +49,7 @@ it('should give an error when the bank account is not found', (done) => {
 describe('Credit a bank account', () => {
     it('should be able to credit a bank account', (done) => {
       chai.request(server)
-      .post('/api/v1/transactions/1/credit')
+      .post('/api/v1/transactions/10001555061257616/credit')
       .send({
           amount : 10000
       })
@@ -62,7 +62,7 @@ describe('Credit a bank account', () => {
 
   it('should not credit a dormant or draft bank account ', (done) => {
     chai.request(server)
-    .post('/api/v1/transactions/2/credit')
+    .post('/api/v1/transactions/10001555061305898/credit')
     .send({
         amount : 10000
     })
@@ -75,7 +75,7 @@ describe('Credit a bank account', () => {
 
   it('should not credit a bank account with no enough amount', (done) => {
     chai.request(server)
-    .post('/api/v1/transactions/4/credit')
+    .post('/api/v1/transactions/20001555063343630/credit')
     .send({
         amount : 40000
     })
@@ -88,7 +88,7 @@ describe('Credit a bank account', () => {
 
 it('should give an error if the bank account is not found', (done) => {
     chai.request(server)
-    .post('/api/v1/transactions/8/credit')
+    .post('/api/v1/transactions/200015550633436/credit')
     .send({
         amount : 40000
     })

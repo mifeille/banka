@@ -153,6 +153,25 @@ it('should not register user with an empty First Name field ', (done) => {
         confirmPassword: "kalisa1!"
     })
     .end((err, res) => {
+      expect(res).to.have.status(400);
+      expect(res.body).to.be.an('object');
+      done();
+      });
+  });
+
+  it('should not allow white spaces in the password', (done) => {
+    chai.request(server)
+    .post('/api/v1/auth/signup')
+    .send( 
+      {
+        firstName: "Richard",
+        lastName : "Kalisa",
+        email: "kalisa@banka.com",
+        password: "kalisa 1!",
+        confirmPassword: "kalisa1!"
+    })
+    .end((err, res) => {
+      expect(res).to.have.status(400);
       expect(res.body).to.be.an('object');
       done();
       });
