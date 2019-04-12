@@ -40,7 +40,8 @@ Run Tests npm test
 
 POST /auth/signup
 
-```{
+```
+{
     "status": 201,
     "data": {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTUwNjU0MjEsImV4cCI6MTU1NTE1MTgyMX0.-hk8VkK0TQNOjA7lTqytP2JdlpkwQ3inWYk8lxCW3C0",
@@ -51,13 +52,15 @@ POST /auth/signup
         "password": "$2b$10$ue5PTBI/xy5E3Jl2ge2mBeuLB.qKPR5D1Vvqox3FRUPiss0rF87qi",
         "type": "client"
     }
-}```
+}
+```
 
 #### Sign in a client (user)
 
 POST /auth/signin
 
-```{
+```
+{
     "status": 200,
     "data": {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTUwNjU1NDcsImV4cCI6MTU1NTE1MTk0N30.wwKcHj3ye5xIazSqRxlOC8CD4RHpuqkipXIQxOvr0zA",
@@ -67,13 +70,15 @@ POST /auth/signin
         "email": "umuhire@banka.com",
         "password": "$2b$10$ZKzudPsCVAv2jHUoQL/zsOUeWoW1ivLV1S8mIYtj95Qvxnfu2xjEy"
     }
-}```
+}
+```
 
 #### Create a Bank account
 
 POST /accounts
 
-```{
+```
+{
     "status": 201,
     "data": {
         "accountNumber": 30001555065642200,
@@ -83,13 +88,15 @@ POST /accounts
         "type": "savings",
         "openingBalance": 0
     }
-}```
+}
+```
 
 #### To activate or deactivate a Bank account
 
 PATCH /account/<account-number>
 
-```{
+```
+{
     "status": 200,
     "data": {
         "accountNumb": 20001555061386016,
@@ -100,22 +107,26 @@ PATCH /account/<account-number>
         "status": "active",
         "openingBalance": 0
     }
-}```
+}
+```
 
 #### To delete a specific Bank account
 
 DELETE /accounts/<account-number>
 
-```{
+```
+{
     "status": 200,
     "message": "Bank account successfully deleted"
-}```
+}
+```
 
 #### To debit a Bank account
 
 POST /transactions/<account-number>/debit
 
-```{
+```
+{
     "status": 201,
     "data": {
         "transactionId": 2,
@@ -124,14 +135,16 @@ POST /transactions/<account-number>/debit
         "transactionType": "debit",
         "accountBalance": 65000
     }
-}```
+}
+```
 
 
 #### To credit a Bank account
 
 POST /transactions/<account-number>/credit
 
-```{
+```
+{
     "status": 201,
     "data": {
         "transactionId": 3,
@@ -140,4 +153,5 @@ POST /transactions/<account-number>/credit
         "transactionType": "credit",
         "accountBalance": 55000
     }
-}```
+}
+```
