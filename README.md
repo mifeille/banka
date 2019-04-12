@@ -93,7 +93,7 @@ POST /accounts
 
 #### To activate or deactivate a Bank account
 
-PATCH /account/<account-number>
+PATCH /accounts/account-number
 
 ```
 {
@@ -112,7 +112,7 @@ PATCH /account/<account-number>
 
 #### To delete a specific Bank account
 
-DELETE /accounts/<account-number>
+DELETE /accounts/account-number
 
 ```
 {
@@ -123,7 +123,7 @@ DELETE /accounts/<account-number>
 
 #### To debit a Bank account
 
-POST /transactions/<account-number>/debit
+POST /transactions/account-number/debit
 
 ```
 {
@@ -141,7 +141,7 @@ POST /transactions/<account-number>/debit
 
 #### To credit a Bank account
 
-POST /transactions/<account-number>/credit
+POST /transactions/account-number/credit
 
 ```
 {
