@@ -83,7 +83,7 @@ it('should not create a bank account if the user email is empty', (done) => {
 
 it('should let a staff/admin be able to activate or deactivate a bank account', (done) => {
     chai.request(server)
-    .patch('/api/v1/accounts/3')
+    .patch('/api/v1/accounts/20001555061386016')
     .send({
         status: "active"
     })
@@ -96,7 +96,7 @@ it('should let a staff/admin be able to activate or deactivate a bank account', 
 
 it('should give an error when the bank account is already activated or dectivated', (done) => {
   chai.request(server)
-  .patch('/api/v1/accounts/4')
+  .patch('/api/v1/accounts/20001555061386016')
   .send({
       status: "active"
   })
@@ -109,7 +109,7 @@ it('should give an error when the bank account is already activated or dectivate
 
 it('should give an error if the bank account to update is not found', (done) => {
     chai.request(server)
-    .patch('/api/v1/accounts/7')
+    .patch('/api/v1/accounts/2000155506138601600')
     .send({
         status: "active"
     })
@@ -122,7 +122,7 @@ it('should give an error if the bank account to update is not found', (done) => 
 
 it('should let a staff/admin delete a specific bank account', (done) => {
   chai.request(server)
-  .delete('/api/v1/accounts/3')
+  .delete('/api/v1/accounts/20001555061386016')
   .send()
   .end((err, res) => {
     expect(res).to.have.status(200);
@@ -133,7 +133,7 @@ it('should let a staff/admin delete a specific bank account', (done) => {
 
 it('should notify the staff/admin when the bank account to delete is not found', (done) => {
   chai.request(server)
-  .delete('/api/v1/accounts/8')
+  .delete('/api/v1/accounts/2000155506138601600')
   .send()
   .end((err, res) => {
     expect(res).to.have.status(404);

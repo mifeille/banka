@@ -83,7 +83,8 @@ export default class authUsers{
         const accountNumber=req.params.accountNumber;
         const accounts = allAccounts.filter(account => account.accountNumber == accountNumber);
         if(accounts.length==1){
-            delete allAccounts[accountNumber-1];
+            const index = allAccounts.indexOf(accounts[0]);
+            allAccounts.splice(index, 1);
             return res.status(200).json({
                 status :200,
                 message:"Bank account successfully deleted"
