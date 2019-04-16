@@ -7,32 +7,38 @@ Banka is a light-weight core banking application that powers banking operations 
 
 ### Features
 
-1. A user (client) can sign up 
-2. A user (client) can login
-3. A user (client) can create an account
-4. A user (client) can view account transaction history
-5. A user (client) can view a specific account transaction
-6. A staff (cashier) can debit user (client) account
-7. A staff (cashier) can credit user (client) account
-8. An admin/staff can view all user accounts
-9. An admin/staff can view a specific user account
-10. An admin/staff can activate or deactivate an account
-11. An admin/staff can delete a specific user account
-12. An admin can create staff and admin user accounts
+* A user (client) can sign up 
+* A user (client) can login
+* A user (client) can create an account
+* A user (client) can view account transaction history
+* A user (client) can view a specific account transaction
+* A staff (cashier) can debit user (client) account
+* A staff (cashier) can credit user (client) account
+* An admin/staff can view all user accounts
+* An admin/staff can view a specific user account
+* An admin/staff can activate or deactivate an account
+* An admin/staff can delete a specific user account
+* An admin can create staff and admin user accounts
 
 ### Requirements
 
-Tools: - Node.js 10.15.3     - NPM 6.4.1
+Tools:
+* Node.js 10.15.3
+* NPM 6.4.1
 
-### Setting up Dev
+### Setting up dependencies
 
-Getting the Project in your local machine https://github.com/mifeille/banka.git cd into the project cd banka
+Clone the repository into your machine  
+`git clone https://github.com/mifeille/banka.git`
 
-Install dependencies npm install
+Install dependencies  
+`npm install`
 
-Starting development server npm start
+Start the server  
+`npm start`
 
-Run Tests npm test
+Run Tests  
+`npm test`
 
 ### API Endpoints
 
