@@ -2,7 +2,7 @@ body{
 	font: 15px/1.5 Arial, Helvetica, sans-serif;
 	padding: 0;
 	margin: 0;
-	background: url("../assets/abstracte-back.jpg");
+	background: url("../assets/abstracte-back.jpg")no-repeat; background-size: cover;
 }
 /*Global*/
 .container{
@@ -10,7 +10,7 @@ body{
 	margin: auto;
 	overflow: hidden;
 }
-.container h1{
+.container h1 a{
 	margin-top: 5%;
 	text-align: center;
 	font-size: 38px;
@@ -109,6 +109,10 @@ header #branding h1{
 	border-radius: 10px;
 	padding: 10px;
 
+}
+header h1 a:hover{
+	border: none;
+	
 }
 header a:hover{
 	font-weight: bold;
@@ -269,7 +273,7 @@ fieldset{
     font-style: italic;
 }
 .buttons{
-	margin-left: 55%;
+	margin-left: 20%;
 		
 }
 .row a{
@@ -398,16 +402,7 @@ article#main-article{
 	color: #68228b;
 	font-size: 24px;
 }
-footer{
-	
-	width: 100%;
-	position: fixed;
-    left: 0;
-    bottom: 0;
-	color: #ffffff;
-	background-color: #4682B4;
-	text-align: center;	
-}
+
 /*media queries*/
 @media(max-width: 768px){
 header #branding,

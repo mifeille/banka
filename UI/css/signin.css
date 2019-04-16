@@ -2,7 +2,7 @@ body{
 	font: 15px/1.5 Arial, Helvetica, sans-serif;
 	padding: 0;
 	margin: 0;
-	background: url("../assets/abstracte-back.jpg");
+	background: url("../assets/abstracte-back.jpg")no-repeat; background-size: cover
 }
 /*Global*/
 .container{
@@ -10,8 +10,7 @@ body{
 	margin: auto;
 	overflow: hidden;
 }
-.container h1{
-	margin-top: 5%;
+.container h1 a{
 	text-align: center;
 	font-size: 38px;
 	color: #ffffff;
@@ -67,7 +66,7 @@ header{
 width: 100%;
 background: #68228b;
 color: #ffffff;
-padding-top: 30px;
+padding-top: 10px;
 min-height: 70px;
 border-bottom: #00536f 1px solid;
 }
@@ -78,8 +77,7 @@ header a{
 	text-decoration: none;
 	font-size: 18px;
 }
-
-/*for tne nav*/
+/*for the nav*/
 
 header .icon{
 	display: none;
@@ -107,21 +105,24 @@ header #branding h1{
 	padding: 10px;
 
 }
+header h1 a:hover{
+	border: none;
+	
+}
 header a:hover{
 	font-weight: bold;
 	border: 1px #ffffff solid;
 	border-radius: 10px;
 }
 
-
-/*main sign in*/
+/*main sign up*/
 #main{
 	width: 70%;
 	margin-left: 15%;
 	margin-right: 15%;
 	text-align: center;
-	margin-top: 4.5%;
-	margin-bottom: 4.5%;
+	margin-top: 2%;
+	margin-bottom: 2%;
 }
 article#main-article{
 	border: #68228b 2px solid;
@@ -135,16 +136,7 @@ article#main-article{
 	color: #68228b;
 	font-size: 24px;
 }
-footer{
-	
-	width: 100%;
-	position: fixed;
-    left: 0;
-    bottom: 0;
-	color: #ffffff;
-	background-color: #4682B4;
-	text-align: center;	
-}
+
 /*media queries*/
 @media(max-width: 768px){
 header #branding,
@@ -159,18 +151,10 @@ label,
 #search,
 #main,
 article#main-col,
-aside#sidebar,
-aside#sidebar_admin{
+.form1{
 	width: 100%;
 	float: none;
 	text-align: center;
-}
-
-#main{
-	margin: 0;
-}
-.form1 input{
-	width: 80%;
 }
 header{
 	min-height: 30px;
@@ -229,11 +213,26 @@ header a.icon {
 
   }
   .topnav a{
-	padding: 5px;	
+	
+	padding: 5px;
+	
+	
 }
-.container h1{
-	font-size: 34px;
+
+.container h1 a{
+	font-size: 30px;
 	margin-top: 5%;
 	text-align: left;
 }
+.form1 input{
+	width: 80%;
+}
+
+#main{
+	margin: 0;
+}
+.container{
+	width: 100%;
+}
+
 }
