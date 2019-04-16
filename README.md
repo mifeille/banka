@@ -46,18 +46,23 @@ Run Tests
 
 POST /auth/signup
 
+To test this endpoint, use the Banka application link below from [Heroku](https://www.heroku.com/) in [Postman](https://www.getpostman.com/)  
+https://bankamireille.herokuapp.com  
+
+In Postman:  
+Select POST as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/auth/signup`  
+
+Go to the body and create a user account
+
 ```
 {
-    "status": 201,
-    "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTUwNjU0MjEsImV4cCI6MTU1NTE1MTgyMX0.-hk8VkK0TQNOjA7lTqytP2JdlpkwQ3inWYk8lxCW3C0",
-        "id": 4,
-        "firstName": "Solange",
-        "lastName": "Umuhire",
-        "email": "umuhire@banka.com",
-        "password": "$2b$10$ue5PTBI/xy5E3Jl2ge2mBeuLB.qKPR5D1Vvqox3FRUPiss0rF87qi",
-        "type": "client"
-    }
+    "firstName": "Solange",
+    "lastName" : "Umuhire",
+    "email": "umuhire@banka.com",
+    "password" : "umuhire1!",
+    "confirmPassword" : "umuhire1!"
+      
 }
 ```
 
@@ -65,60 +70,61 @@ POST /auth/signup
 
 POST /auth/signin
 
+In Postman:  
+Select POST as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/auth/signin`  
+
+Go to the body and log in
+
 ```
 {
-    "status": 200,
-    "data": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTUwNjU1NDcsImV4cCI6MTU1NTE1MTk0N30.wwKcHj3ye5xIazSqRxlOC8CD4RHpuqkipXIQxOvr0zA",
-        "id": 4,
-        "firstName": "Solange",
-        "lastName": "Umuhire",
-        "email": "umuhire@banka.com",
-        "password": "$2b$10$ZKzudPsCVAv2jHUoQL/zsOUeWoW1ivLV1S8mIYtj95Qvxnfu2xjEy"
-    }
+    "email": "umuhire@banka.com",
+    "password" : "umuhire1!"
 }
 ```
 
 #### Create a Bank account
 
-POST /accounts
+POST /accounts 
+
+In Postman:  
+Select POST as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/accounts`  
+
+Go to the body and create a Bank account
 
 ```
 {
-    "status": 201,
-    "data": {
-        "accountNumber": 30001555065642200,
-        "firstName": "Blaise",
-        "lastName": "Kalima",
-        "email": "kalimaB@banka.com",
-        "type": "savings",
-        "openingBalance": 0
-    }
+    "firstName": "Blaise",
+    "lastName" : "Kalima",
+    "email": "kalimaB@banka.com",
+    "type": "savings"
 }
 ```
 
 #### To activate or deactivate a Bank account
 
-PATCH /accounts/account-number
+PATCH /accounts/account-number  
+
+In Postman:  
+Select PATCH as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/accounts/account-number`  
+
+Go to the body and activate or deactivate a Bank account
 
 ```
 {
-    "status": 200,
-    "data": {
-        "accountNumb": 20001555061386016,
-        "firstName": "Patrick",
-        "lastName": "Kalima",
-        "email": "kalima@banka.com",
-        "type": "current",
-        "status": "active",
-        "openingBalance": 0
-    }
+    "status": "active"
 }
 ```
 
 #### To delete a specific Bank account
 
-DELETE /accounts/account-number
+DELETE /accounts/account-number  
+
+In Postman:  
+Select DELETE as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/accounts/account-number` 
 
 ```
 {
@@ -129,35 +135,33 @@ DELETE /accounts/account-number
 
 #### To debit a Bank account
 
-POST /transactions/account-number/debit
+POST /transactions/account-number/debit  
+
+In Postman:  
+Select POST as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/transactions/account-number/debit`  
+
+Go to the body and debit a Bank account
 
 ```
 {
-    "status": 201,
-    "data": {
-        "transactionId": 2,
-        "accountNumber": "10001555061257616",
-        "amount": 45000,
-        "transactionType": "debit",
-        "accountBalance": 65000
-    }
+    "amount" : 45000
 }
 ```
 
 
 #### To credit a Bank account
 
-POST /transactions/account-number/credit
+POST /transactions/account-number/credit  
+
+In Postman:  
+Select POST as the request method and use this endpoint  
+`https://bankamireille.herokuapp.com/api/v1/transactions/account-number/credit`  
+
+Go to the body and credit a Bank account
 
 ```
 {
-    "status": 201,
-    "data": {
-        "transactionId": 3,
-        "accountNumber": "10001555061257616",
-        "amount": 10000,
-        "transactionType": "credit",
-        "accountBalance": 55000
-    }
+    "amount" : 45000
 }
 ```
