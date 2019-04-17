@@ -123,6 +123,42 @@ it('should not register user with an empty First Name field ', (done) => {
       done();
     });
   });
+
+  it('should not register user with an integer as First Name ', (done) => {
+    chai.request(server)
+    .post('/api/v1/auth/signup')
+    .send(
+      {
+        firstName: 1,
+        lastName : "Kalisa",
+        email: "kalisa@banka.com",
+        password: "kalisa1!",
+        confirmPassword: "kalisa1!"
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+    });
+
+    it('should accept only letters in the first name   ', (done) => {
+      chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send(
+        {
+          firstName: "Patri1",
+          lastName : "Kalisa",
+          email: "kalisa@banka.com",
+          password: "kalisa1!",
+          confirmPassword: "kalisa1!"
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          done();
+        });
+      });
   
   it('should not register a user with an empty Last Name field ', (done) => {
     chai.request(server)
@@ -140,6 +176,43 @@ it('should not register user with an empty First Name field ', (done) => {
       done();
     });
   });
+
+  it('should not register user with an integer as Last Name ', (done) => {
+    chai.request(server)
+    .post('/api/v1/auth/signup')
+    .send(
+      {
+        firstName: "Patrick",
+        lastName : 1,
+        email: "kalisa@banka.com",
+        password: "kalisa1!",
+        confirmPassword: "kalisa1!"
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+    });
+
+    it('should accept only letters in the last name ', (done) => {
+      chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send(
+        {
+          firstName: "Patrick",
+          lastName : "Kalis1",
+          email: "kalisa@banka.com",
+          password: "kalisa1!",
+          confirmPassword: "kalisa1!"
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          done();
+        });
+      });
+  
 
   it('should not register a user without password', (done) => {
     chai.request(server)

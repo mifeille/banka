@@ -6,15 +6,36 @@ export default class validateUser {
     static validateSignup (req, res){
         const allUsers = userData;
         let whiteSpace = /\s/;
+        let validLetters = /^[A-Za-z]+$/;
+
+        if (typeof req.body.firstName ==='number') {
+            
+            throw Error("First Name should not be a number");
+        }
 
         if (validator.isEmpty(req.body.firstName)) {
            
             throw Error("First Name is required"); 
         }
 
+        if (!validLetters.test(req.body.firstName)) {
+           
+            throw Error("First Name should contain only letters"); 
+        }
+
+        if (typeof req.body.lastName ==='number') {
+            
+            throw Error("Last Name should not be a number");
+        }
+
         if (validator.isEmpty(req.body.lastName)) {
            
             throw Error("Last Name is required");
+        }
+
+        if (!validLetters.test(req.body.lastName)) {
+           
+            throw Error("Last Name should contain only letters"); 
         }
 
         if (typeof req.body.email ==='number') {
