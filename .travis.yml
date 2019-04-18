@@ -1,6 +1,3 @@
-env:
-  global:
-    - JWTSECRETKEY=mynameisniwemuhuza_mireille
 language: node_js
 node_js: 
   - "stable" 

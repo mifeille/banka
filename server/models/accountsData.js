@@ -1,9 +1,8 @@
 const accountData = [
     {
         accountNumber: 10001555061257616,
-        firstName: "Marie",
-        lastName : "Uwimana",
-        email: "uwimana@banka.com",
+        createdOn: "12/03/2019",
+        owner:1,
         type: "savings",
         status:"active",
         openingBalance:0,
@@ -11,9 +10,8 @@ const accountData = [
     },
     {
         accountNumber: 10001555061305898,
-        firstName: "Marie",
-        lastName : "Uwimana",
-        email: "uwimana@banka.com",
+        createdOn: "10/04/2019",
+        owner:1,
         type: "current",
         status:"draft",
         openingBalance:0,
@@ -22,9 +20,8 @@ const accountData = [
 
     {
         accountNumber: 20001555061386016,
-        firstName: "Patrick",
-        lastName : "Kalima",
-        email: "kalima@banka.com",
+        createdOn: "12/03/2019",
+        owner:2,
         type: "current",
         status:"dormant",
         openingBalance:0,
@@ -33,9 +30,8 @@ const accountData = [
 
     {
         accountNumber: 20001555063343630,
-        firstName: "Patrick",
-        lastName : "Kalima",
-        email: "kalima@banka.com",
+        createdOn: "12/03/2019",
+        owner:2,
         type: "savings",
         status:"active",
         openingBalance:0,

@@ -2,8 +2,10 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {userData} from '../models/usersData';
 import validation from '../helpers/userValidation';
+import {accountData} from '../models/accountsData'
 
 const allUsers = userData;
+const allAccounts = accountData;
 
 export default class authUsers{
    static getAll(req, res){
@@ -37,16 +39,16 @@ export default class authUsers{
                     allUsers.push(user);
                     const users = allUsers.filter(user => user.email == req.body.email);
                     const token = jwt.sign({
-                        email: users.email,
-                        userId: users.id
+                        email: req.body.email
                     }, process.env.JWTSECRETKEY,
                     {
                         expiresIn: "24h"
                     });
-                    let id=user.id,firstName=user.firstName,lastName=user.lastName,email=user.email,password=hash,type=user.type;
+                    let id=user.id,firstName=user.firstName,lastName=user.lastName,email=user.email,type=user.type;
                     res.status(201).json({
                         status :201,
-                        data: {token,id,firstName,lastName,email,password,type}
+                        message : "Your user account has been created",
+                        data: {token,id,firstName,lastName,email,type}
                     });
                 });
             }
@@ -85,17 +87,20 @@ export default class authUsers{
                                 message: "Incorrect email or password"
                             });
                         } else {
+                            
                             const token = jwt.sign({
-                                email: users.email,
-                                userId: users.id
+                                email: req.body.email
+                                
+
                             }, process.env.JWTSECRETKEY,
                             { 
                                 expiresIn: "24h"
                             });
-                            let id = users[0].id, firstName = users[0].firstName,lastName = users[0].lastName , email=req.body.email, password=hash;
+                            let id = users[0].id, firstName = users[0].firstName,lastName = users[0].lastName , email=req.body.email;
                             return res.status(200).json({
                                 status:200,
-                                data: {token, id, firstName, lastName, email,password}
+                                message : "You have successfully log in Banka",
+                                data: {token, id, firstName, lastName, email}
                             });
                         }
                     });
@@ -108,4 +113,33 @@ export default class authUsers{
             });
         }
     }
+
+    static getUserAccount(req, res){
+
+        let decodedEmail;
+            jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+                if(err){
+                    return res.status(403).json({
+                        status:403,
+                        error:"A token must be provided!"
+                    });
+                }
+                decodedEmail = decoded.email;
+            });
+
+            const user = allUsers.filter(oneUser => oneUser.email == decodedEmail);
+            console.log(user[0].id);
+            
+            const accounts = allAccounts.filter(account => account.owner == user[0].id);
+            console.log(accounts);
+            return res.send({
+                message: "Your Bank accounts :",
+                status :200,
+                data: accounts
+            })
+
+
+    }
+
+
 }

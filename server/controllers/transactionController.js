@@ -1,13 +1,34 @@
 import {accountData} from '../models/accountsData';
 import {transactionData} from '../models/transactionData'
-import validation from '../helpers/accountValidation'
+import jwt from 'jsonwebtoken';
+import {userData} from '../models/usersData';
 
 const allAccounts = accountData;
 const allTransactions= transactionData;
+const allUsers = userData;
 
 export default class transaction{
 
     static debitAccount(req, res){
+        let decodedEmail;
+            jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+                if(err){
+                    return res.status(403).json({
+                        status:403,
+                        error:"A token must be provided!"
+                    });
+                }
+                decodedEmail = decoded.email;
+            });
+            const staff = allUsers.filter(oneStaff => oneStaff.email == decodedEmail); 
+            if(staff[0].isAdmin == true) {
+                return res.status(400).json({
+                    status :400,
+                    message: "You do not have the right to debit a Bank account!"
+                });
+    
+            }
+            else {  
 
         const accountNumb=req.params.accountNumber;
         let toDay = new Date();
@@ -46,9 +67,31 @@ export default class transaction{
                     message: "The bank account entered does not exist!"
                 });
             }
+        } 
         }
 
         static creditAccount(req, res){
+
+            let decodedEmail;
+            jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+                if(err){
+                    return res.status(403).json({
+                        status:403,
+                        error:"A token must be provided!"
+                    });
+                }
+                decodedEmail = decoded.email;
+            });
+            
+            const staff = allUsers.filter(oneStaff => oneStaff.email == decodedEmail); 
+            if(staff[0].isAdmin == true) {
+                return res.status(400).json({
+                    status :400,
+                    message: "You do not have the right to credit a Bank account!"
+                });
+    
+            }
+            else{
 
             const accountNumb=req.params.accountNumber;
             let toDay = new Date();
@@ -65,7 +108,7 @@ export default class transaction{
                     if(accounts[0].balance < req.body.amount ){
                         return res.status(400).json({
                             status :400,
-                            message: "You have that amount on your account"
+                            message: "You do not have that amount on your account"
                         });
                     }
                     
@@ -95,7 +138,8 @@ export default class transaction{
                         message: "The bank account entered does not exist!"
                     });
                 }
-            }
-
+            
+    }
+    }
 
 }
