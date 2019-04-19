@@ -8,7 +8,8 @@
     "start": "nodemon --exec babel-node server/server.js",
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
-    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",
+    "initialDb": "babel-node server/v2/db/createTables"
   },
   "engines": {
     "node": "11.14.0"
@@ -39,7 +40,6 @@
     "nodemon": "^1.18.10",
     "nyc": "^13.3.0"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mifeille/banka.git"
