@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import apiRoutes from './routes/myRoutes';
+import v2Routes from './routes/v2Routes';
+
 
 dotenv.config();
 
@@ -13,6 +15,7 @@ app.use(bodyParser.json());
 
 
 app.use('/api/v1/', apiRoutes);
+app.use('/api/v2/', v2Routes);
 
 
 const port=process.env.PORT||3050;
