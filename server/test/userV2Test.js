@@ -309,7 +309,7 @@ describe('User login', () => {
         .send({
             firstname: "Melisse",
             lastname : "Kayirangwa",
-            email: "kayirangwamel@banka.com",
+            email: "kayirangwamelissa@banka.com",
             password: "kayirangwa1!",
             confirmPassword: "kayirangwa1!"
         })
@@ -324,7 +324,7 @@ describe('User login', () => {
         chai.request(server)
         .post('/api/v2/auth/signin')
         .send({
-            email: "kayirangwa@banka.com",
+            email: "kayirangwamelissa@banka.com",
             password : "kayirangwa1!"
         })
         .end((err, res) => {
