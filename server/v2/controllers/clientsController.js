@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import validation from '../helpers/userValidation';
 import db from '../db/dbconnection';
 
-
 const authUsers = {
   async getAll(req, res){
 
@@ -62,9 +61,50 @@ const authUsers = {
         message: err.message
       });
     }
+  },
+
+  async loginUser (req, res){
+    try{
+      if(validation.validateLogin(req, res)){
+        const hash = bcrypt.hashSync(req.body.password, 10);
+        const used = 'SELECT * FROM clients WHERE (email= $1)';
+        const emailValue = [req.body.email];
+        const findUser = await db.query(used, emailValue);
+        if(findUser.rows<1){
+          return res.status(401).json({
+            status:401,
+             message: "Incorrect email or password"
+          });
+        }
+        bcrypt.compare(req.body.password, findUser.rows[0].password, function (err, result) {
+          if (result == false) {
+            return res.status(401).json({
+              status:401,
+              message: "Incorrect email or password"
+            });
+          } else {
+            const token = jwt.sign({
+              email: req.body.email
+            }, process.env.JWTSECRETKEY,
+            { 
+              expiresIn: "24h"
+            });
+            let id = findUser.rows[0].id, firstName = findUser.rows[0].firstName,lastName = findUser.rows[0].lastName , email=findUser.rows[0].email;
+            return res.status(200).json({
+              status:200,
+              message : "You have successfully log in Banka",
+              data: {token, id, firstName, lastName, email}
+            });
+          }
+        });
+      }
+    } catch(err){
+      res.status(400).json({
+          status:400,
+          message: err.message
+      });
+    }
   }
-
-
 }
 
 
