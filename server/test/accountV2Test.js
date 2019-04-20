@@ -27,6 +27,7 @@ describe('Bank account creation', () => {
     
     after((done) =>{
         db.query(`DELETE FROM accounts WHERE accountnumber='${accountnumb}'`);
+        db.query(`DELETE FROM clients WHERE email='kayirangwamelissa@banka.com'`);
         done();
     });
     
