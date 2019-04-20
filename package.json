@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 5000 server/test/*.js --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
     "start": "nodemon --exec babel-node server/server.js",
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
@@ -15,6 +15,12 @@
     "node": "11.14.0"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
     "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
@@ -23,13 +29,10 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "lodash.isempty": "^4.4.0",
-    "validator": "^10.11.0",
+    "moment": "^2.24.0",
     "nodemon": "^1.18.10",
-    "@babel/node": "^7.2.2",
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/register": "^7.4.0"
+    "pg": "^7.10.0",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
     "@babel/node": "^7.2.2",
