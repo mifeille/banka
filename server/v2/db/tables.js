@@ -6,7 +6,17 @@ const dbQuery = {
         email VARCHAR(128) NOT NULL UNIQUE,
         password VARCHAR(128) NOT NULL,
         type VARCHAR(10)
+    )` ,
+
+    registerAccountTable: `CREATE TABLE IF NOT EXISTS accounts (
+        accountnumber BIGINT PRIMARY KEY,
+        createdon TIMESTAMP NOT NULL,
+        owner INTEGER NOT NULL,
+        type VARCHAR(10) NOT NULL,
+        status VARCHAR(128) NOT NULL,
+        openingbalance DECIMAL(12,2) NOT NULL,
+        balance DECIMAL(12,2) NOT NULL
     )` 
-        
+   
 }
 export default dbQuery;

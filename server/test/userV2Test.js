@@ -303,22 +303,6 @@ describe('User signup', () => {
 });
 
 describe('User login', () => {
-    before((done) => {
-        chai.request(server)
-        .post('/api/v2/auth/signup')
-        .send({
-            firstname: "Melisse",
-            lastname : "Kayirangwa",
-            email: "kayirangwamelissa@banka.com",
-            password: "kayirangwa1!",
-            confirmPassword: "kayirangwa1!"
-        })
-        .end((err, res) => {
-            expect(res).to.have.status(201);
-            expect(res.body).to.be.an('object');
-            done();
-        });
-    });
     
     it('should login a user without the correct credentials', (done) => {
         chai.request(server)

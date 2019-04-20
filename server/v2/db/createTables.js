@@ -15,14 +15,31 @@ const registerClientsTable = async () => {
       })
       .catch((err) => {
         console.log(err);
-        pool.end();
       });
   };
   (async () => {
       await registerClientsTable();
-      pool.end();
       console.log(' Clients');
     })()
     .catch((err) => {
         console.log(err);
     })
+
+    const registerAccountsTable = async () => {
+      const queryText = queryDb.registerAccountTable;
+      await pool.query(queryText)
+        .then(async () => {
+        })
+        .catch((err) => {
+          console.log(err);
+          pool.end();
+        });
+    };
+    (async () => {
+        await registerAccountsTable();
+        pool.end();
+        console.log('Accounts');
+      })()
+      .catch((err) => {
+          console.log(err);
+      })
