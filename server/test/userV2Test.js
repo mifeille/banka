@@ -319,6 +319,11 @@ describe('User login', () => {
             done();
         });
     });
+
+    after((done) =>{
+        db.query(`DELETE FROM clients WHERE email='kayirangwamelissa@banka.com'`);
+        done();
+    });
     
     it('should login a user without the correct credentials', (done) => {
         chai.request(server)

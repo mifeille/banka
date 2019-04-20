@@ -12,13 +12,16 @@ describe('Bank account creation', () => {
 
   before((done) => {
         chai.request(server)
-        .post('/api/v2/auth/signin')
+        .post('/api/v2/auth/signup')
         .send({
-            email: "kayirangwamelissa@banka.com",
-            password : "kayirangwa1!"
+            firstname: "Aurore",
+            lastname : "Kay",
+            email: "kay@banka.com",
+            password: "kayitaure1!",
+            confirmPassword: "kayitaure1!"
         })
         .end((err, res) => {
-            expect(res).to.have.status(200);
+            expect(res).to.have.status(201);
             expect(res.body).to.be.an('object');
             userToken = res.body.data.token;
             done();
@@ -27,7 +30,7 @@ describe('Bank account creation', () => {
     
     after((done) =>{
         db.query(`DELETE FROM accounts WHERE accountnumber='${accountnumb}'`);
-        db.query(`DELETE FROM clients WHERE email='kayirangwamelissa@banka.com'`);
+        db.query(`DELETE FROM clients WHERE email='kay@banka.com'`);
         done();
     });
     
