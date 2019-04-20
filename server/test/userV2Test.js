@@ -49,11 +49,11 @@ describe('User signup', () => {
         chai.request(server)
         .post('/api/v2/auth/signup')
         .send({
-            firstname: "Emily",
-            lastname : "Benurugo",
-            email: "benurugo@banka.com",
-            password: "benurugo1!",
-            confirmPassword: "benurugo1!"
+            firstname: "Richard",
+            lastname : "Kalisa",
+            email: "kalisa@banka.com",
+            password: "kalisa1!",
+            confirmPassword: "kalisa1!"
         })
         .end((err, res) => {
             expect(res).to.have.status(409);
