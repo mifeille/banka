@@ -76,5 +76,25 @@ export default class validateUser {
         }
             return true;
     }
+
+    static validateLogin (req, res){
+
+        if (typeof req.body.email == "number") {
+            throw Error("Wrong format, email should not be an integer");
+        }
+
+        if (validator.isEmpty(req.body.email)) {
+            throw Error("Email should not be empty");
+        }
+        
+       
+        if (!validator.isEmail(req.body.email)) {
+            throw Error("Your email should look like this : example@email.com");
+        }
+        if (validator.isEmpty(req.body.password)) {
+            throw Error("Password is required");
+        }
+        return true;
+    }
         
 }

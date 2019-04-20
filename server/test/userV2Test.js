@@ -301,5 +301,121 @@ describe('User signup', () => {
         });
     });
 });
+
+describe('User login', () => {
+    
+    it('should login a user without the correct credentials', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({
+            email: "kayirangwa@banka.com",
+            password : "kayirangwa1!"
+        })
+        .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('object');
+            done();
+        });
+    });
+      
+    it('should not log in user with an integer email ', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({
+            email: 1,
+            password : "kayirangwa1!"
+        })
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.be.an('object');
+            done();
+        });
+    });
+      
+    it('should not login user without email address', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({
+            email: "",
+            password : "kayirangwa1!"
+        })
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.be.an('object');
+            done();
+        });
+    });
+
+    it('should not login user with an incorrect email address', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({
+            email: "kayirangwa.com",
+            password : "kayirangwa1!"
+        })
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.be.an('object');
+            done();
+        });
+    });
+      
+    it('should not login user with an incorrect email or password', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({ 
+          email: "kayirangw@banka.com",
+          password : "kayirangwa1"})
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
+
+    it('should not login user with an incorrect password', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({ 
+            email: "kayirangwa@banka.com",
+            password : "kayirangwa"
+        })
+        .end((err, res) => {
+            expect(res).to.have.status(401);
+            expect(res.body).to.be.an('object');
+            done();
+        });
+    });
+      
+    it('should not login user if the email is not registered', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({ 
+            email: "kay@banka.com",
+            password : "kalima1!"
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body).to.be.an('object');
+          done();
+        });
+      });
+  
+    it('should not login user with no password', (done) => {
+        chai.request(server)
+        .post('/api/v2/auth/signin')
+        .send({ 
+            email: "kayirangwa@banka.com",
+            password : ""
+        })
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.be.an('object');
+            done();
+        });
+    });
+
+
+});
   
 
