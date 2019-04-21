@@ -127,7 +127,46 @@ const authStaff = {
             message: err.message
         });
     }
-  }
+  },
+
+  async getAllAccounts(req, res){
+    let decodedEmail;
+    jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+        if(err){
+            return res.status(403).json({
+                status:403,
+                error:"A token must to be provided!"
+            });
+        }
+        decodedEmail = decoded.email;
+    });
+
+    const admin = 'SELECT * FROM staff WHERE email = $1';
+    const findAdmin = await db.query(admin,[decodedEmail] );
+    if(findAdmin.rows == 0) {
+        return res.status(400).json({
+            status:400,
+            message: "You do not have the right to view all bank accounts"
+        });
+    } 
+
+    if(findAdmin.rows[0].isadmin !== 'true') {
+        return res.status(400).json({
+            status:400,
+            message: "You do not have the right to view all bank accounts"
+        });
+    } else {
+        const allAccounts = 'SELECT * FROM accounts';
+        const { rows} = await db.query(allAccounts);
+        return res.send({
+            status :200,
+            message: "The list of all Bank accounts",
+            data: rows
+        })
+    }
+}
+
+
 }
 
 export default authStaff;

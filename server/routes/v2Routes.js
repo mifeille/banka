@@ -23,6 +23,7 @@ myRouter.patch('/accounts/:accountNumber', getToken, accounts.updateAccount);
 myRouter.delete('/accounts/:accountNumber',getToken, accounts.deleteAccount);
 myRouter.get('/user/accounts',getToken,accounts.userAccount);
 myRouter.get('/accounts/:accountNumber',getToken,accounts.userFindAccount);
+myRouter.get('/accounts',getToken,employees.getAllAccounts);
 //staff accounts
 
 myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
