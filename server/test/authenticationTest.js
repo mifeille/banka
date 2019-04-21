@@ -400,5 +400,5 @@ describe('User login', () => {
         done();
       });
     });
-    });
+  });
         

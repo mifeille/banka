@@ -25,6 +25,23 @@ const registerClientsTable = async () => {
         console.log(err);
     })
 
+    const registerEmployeesTable = async () => {
+      const queryText = queryDb.registerStaffTable ;
+      await pool.query(queryText)
+        .then(async () => {
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    (async () => {
+        await registerEmployeesTable ();
+        console.log(' Staff');
+      })()
+      .catch((err) => {
+          console.log(err);
+      })
+
     const registerAccountsTable = async () => {
       const queryText = queryDb.registerAccountTable;
       await pool.query(queryText)
