@@ -1,7 +1,9 @@
 import { Router } from "express";
 import users from "../v2/controllers/clientsController";
 import accounts from '../v2/controllers/accountController';
-import getToken from '../v2/middlewares/authorization'
+import getToken from '../v2/middlewares/authorization';
+import employees from '../v2/controllers/staffController';
+import admin from '../v2/helpers/firstAdmin';
 
 
 
@@ -16,6 +18,13 @@ myRouter.post('/auth/signin',users.loginUser);
 //account routes
 
 myRouter.post('/accounts', getToken, accounts.createAccount);
+
+//staff accounts
+
+myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
+myRouter.post('/staff/auth/signin',employees.loginStaff);
+myRouter.post('/staff/test',admin.createFirstAdmin);
+
 
 
 

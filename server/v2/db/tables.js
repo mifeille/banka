@@ -5,7 +5,9 @@ const dbQuery = {
         lastname VARCHAR(128) NOT NULL,
         email VARCHAR(128) NOT NULL UNIQUE,
         password VARCHAR(128) NOT NULL,
-        type VARCHAR(10)
+        type VARCHAR(10),
+        isadmin VARCHAR(10)
+
     )` ,
 
     registerAccountTable: `CREATE TABLE IF NOT EXISTS accounts (
@@ -16,6 +18,16 @@ const dbQuery = {
         status VARCHAR(128) NOT NULL,
         openingbalance DECIMAL(12,2) NOT NULL,
         balance DECIMAL(12,2) NOT NULL
+    )` ,
+
+    registerStaffTable: `CREATE TABLE IF NOT EXISTS staff (
+        id SERIAL PRIMARY KEY,
+        firstName VARCHAR(128) NOT NULL,
+        lastname VARCHAR(128) NOT NULL,
+        email VARCHAR(128) NOT NULL UNIQUE,
+        password VARCHAR(128) NOT NULL,
+        type VARCHAR(10),
+        isadmin VARCHAR(10)
     )` 
    
 }

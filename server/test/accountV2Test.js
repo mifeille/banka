@@ -3,7 +3,7 @@ import chai from 'chai';
 import server from '../server';
 import db from '../v2/db/dbconnection'
 
-let userToken,adminToken,staffToken,accountnumb;
+let userToken,accountnumb;
 
 let expect = chai.expect;
 chai.use(chaiHttp);

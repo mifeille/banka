@@ -34,11 +34,12 @@ const authUsers = {
           lastname: req.body.lastname,
           email: req.body.email,
           password: hash,
-          type:"client"
+          type:"client",
+          isadmin: false
         }
         
-        const query = 'INSERT INTO clients (firstname,lastname,email,password,type) VALUES($1, $2, $3, $4, $5) RETURNING *';
-        const values = [user.firstname, user.lastname, user.email, user.password, user.type];
+        const query = 'INSERT INTO clients (firstname,lastname,email,password,type,isadmin) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
+        const values = [user.firstname, user.lastname, user.email, user.password, user.type, user.isadmin];
         const result = await db.query(query, values);
         const token = jwt.sign({
           email: user.email
