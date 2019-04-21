@@ -156,7 +156,50 @@ const transaction = {
             }
                 
         }
-    }
+    },
+
+    async transactionsHistory(req, res){
+
+        let decodedEmail;
+        jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+            if(err){
+                return res.status(403).json({
+                    status:403,
+                    error:"A token must be provided!"
+                });
+            }
+            decodedEmail = decoded.email;
+        });
+
+        const client = 'SELECT * FROM clients WHERE email = $1';
+        const findClient = await db.query(client, [decodedEmail]);
+        if(findClient.rows == 0) {
+            return res.status(400).json({
+                status:400,
+                message: "You must create a user account first!"
+            }); 
+        } else {
+            const accountNumber = req.params.accountNumber;
+            const history = 'SELECT * FROM transactions WHERE accountnumber = $1';
+            const transactionsHistory = await db.query(history, [accountNumber]);
+            if(findClient.rows == 0) {
+                return res.status(400).json({
+                    status:400,
+                    message: "No transaction found on this account!"
+                });
+            } else {
+                let history =transactionsHistory.rows;
+                return res.status(200).json({
+                    status :200,
+                    message : `${accountNumber} transaction history​ :`,
+                    data: {history}
+                });
+
+
+            }
+
+        }
+        }
 
 }
 
