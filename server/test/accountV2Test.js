@@ -3,7 +3,7 @@ import chai from 'chai';
 import server from '../server';
 import db from '../v2/db/dbconnection'
 
-let userToken,accountnumb;
+let userToken,accountnumb,adminToken,cashierToken;
 
 let expect = chai.expect;
 chai.use(chaiHttp);
@@ -77,5 +77,6 @@ describe('Bank account creation', () => {
     });
 
 });
+
 
 

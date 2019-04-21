@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../db/dbconnection';
+import moment from 'moment';
 
 const firstAdmin = {
     async createFirstAdmin(req, res){
@@ -34,6 +35,9 @@ const firstAdmin = {
         }
  
 }
+ } 
+
+
     
-}
+
 export default firstAdmin;

@@ -15,15 +15,20 @@ myRouter.get('/users',users.getAll);
 myRouter.post('/auth/signup',users.registerUser);
 myRouter.post('/auth/signin',users.loginUser);
 
-//account routes
+//bank account routes
 
 myRouter.post('/accounts', getToken, accounts.createAccount);
+myRouter.patch('/accounts/:accountNumber', getToken, accounts.updateAccount);
 
 //staff accounts
 
 myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
 myRouter.post('/staff/auth/signin',employees.loginStaff);
+
+//test routes
 myRouter.post('/staff/test',admin.createFirstAdmin);
+
+
 
 
 
