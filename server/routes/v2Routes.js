@@ -21,11 +21,13 @@ myRouter.post('/auth/signin',users.loginUser);
 myRouter.post('/accounts', getToken, accounts.createAccount);
 myRouter.patch('/accounts/:accountNumber', getToken, accounts.updateAccount);
 myRouter.delete('/accounts/:accountNumber',getToken, accounts.deleteAccount);
+myRouter.get('/user/accounts',getToken,accounts.userAccount);
 
 //staff accounts
 
 myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
 myRouter.post('/staff/auth/signin',employees.loginStaff);
+
 
 // transaction routes
 
