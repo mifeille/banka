@@ -155,7 +155,30 @@ const authStaff = {
             status:400,
             message: "You do not have the right to view all bank accounts"
         });
-    } else {
+    }
+    if(req.query.status) {
+
+        const status=req.query.status;
+        const account = 'SELECT * FROM accounts WHERE status = $1';
+        const query = await db.query(account, [status]);
+        if(query.rows == 0) {
+            return res.status(404).json({
+                status:404,
+                message: `No ${status} Bank accounts found!`
+            }); 
+        } 
+        
+        else {
+            return res.status(200).json({
+                status :200,
+                message: `${status} Bank accounts`,
+                data: query.rows
+
+            });
+        } 
+
+    } 
+    else {
         const allAccounts = 'SELECT * FROM accounts';
         const { rows} = await db.query(allAccounts);
         return res.send({
