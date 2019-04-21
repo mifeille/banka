@@ -192,14 +192,57 @@ const transaction = {
                 return res.status(200).json({
                     status :200,
                     message : `${accountNumber} transaction history​ :`,
-                    data: {history}
+                    data: transactionsHistory.rows
                 });
 
 
             }
 
         }
+    },
+
+    async getAtransaction(req, res){
+
+        let decodedEmail;
+        jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+            if(err){
+                return res.status(403).json({
+                    status:403,
+                    error:"A token must be provided!"
+                });
+            }
+            decodedEmail = decoded.email;
+        });
+
+        const client = 'SELECT * FROM clients WHERE email = $1';
+        const findClient = await db.query(client, [decodedEmail]);
+        if(findClient.rows == 0) {
+            return res.status(400).json({
+                status:400,
+                message: "You must create a user account first!"
+            }); 
+        } else {
+            const transactionId = req.params.transactionId;
+            const findTransaction = 'SELECT * FROM transactions WHERE id = $1';
+            const transaction = await db.query(findTransaction, [transactionId]);
+            if(transaction.rows == 0) {
+                return res.status(404).json({
+                    status:404,
+                    message: "No transaction not found!"
+                });
+            } else {
+                console.log(transaction.rows);
+                return res.status(200).json({
+                    status :200,
+                    message : 'Transaction details:',
+                    data: transaction.rows[0]
+                });
+
+
+            }
+
         }
+    }
 
 }
 
