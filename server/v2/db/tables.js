@@ -28,7 +28,18 @@ const dbQuery = {
         password VARCHAR(128) NOT NULL,
         type VARCHAR(10),
         isadmin VARCHAR(10)
+    )` ,
+
+    registerTransactionTable: `CREATE TABLE IF NOT EXISTS transactions (
+        id SERIAL PRIMARY KEY,
+        createdon TIMESTAMP NOT NULL,
+        type VARCHAR(10) NOT NULL,
+        accountnumber BIGINT NOT NULL,
+        amount DECIMAL(12,2) NOT NULL,
+        oldbalance DECIMAL(12,2) NOT NULL,
+        newbalance DECIMAL(12,2) NOT NULL
+
+        
     )` 
-   
 }
 export default dbQuery;

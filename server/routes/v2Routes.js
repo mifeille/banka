@@ -4,6 +4,7 @@ import accounts from '../v2/controllers/accountController';
 import getToken from '../v2/middlewares/authorization';
 import employees from '../v2/controllers/staffController';
 import admin from '../v2/helpers/firstAdmin';
+import transactions from '../v2/controllers/transactionsController'
 
 
 
@@ -25,6 +26,11 @@ myRouter.delete('/accounts/:accountNumber',getToken, accounts.deleteAccount);
 
 myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
 myRouter.post('/staff/auth/signin',employees.loginStaff);
+
+// transaction routes
+
+myRouter.post('/transactions/:accountNumber/debit', getToken, transactions.debitAccount);
+myRouter.post('/transactions/:accountNumber/credit', getToken, transactions.creditAccount);
 
 
 //test routes
