@@ -32,7 +32,7 @@ myRouter.post('/staff/auth/signin',employees.loginStaff);
 myRouter.post('/transactions/:accountNumber/debit', getToken, transactions.debitAccount);
 myRouter.post('/transactions/:accountNumber/credit', getToken, transactions.creditAccount);
 myRouter.get('/accounts/:accountNumber/transactions', getToken, transactions.transactionsHistory);
-
+myRouter.get('/transactions/:transactionId', getToken, transactions.getAtransaction);
 
 //test routes
 myRouter.post('/staff/test',admin.createFirstAdmin);
