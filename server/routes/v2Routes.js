@@ -24,6 +24,10 @@ myRouter.delete('/accounts/:accountNumber',getToken, accounts.deleteAccount);
 myRouter.get('/user/accounts',getToken,accounts.userAccount);
 myRouter.get('/accounts/:accountNumber',getToken,accounts.userFindAccount);
 myRouter.get('/accounts',getToken,employees.getAllAccounts);
+myRouter.get('/accounts?status=active', getToken ,employees.getAllAccounts);
+myRouter.get('/accounts?status=dormant', getToken ,employees.getAllAccounts);
+myRouter.get('/accounts?status=draft', getToken ,employees.getAllAccounts);
+
 //staff accounts
 
 myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
