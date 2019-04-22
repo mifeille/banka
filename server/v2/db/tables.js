@@ -40,6 +40,14 @@ const dbQuery = {
         newbalance DECIMAL(12,2) NOT NULL
 
         
+    )`,
+    registerNotificationTable: `CREATE TABLE IF NOT EXISTS notifications (
+        id SERIAL PRIMARY KEY,
+        createdon TIMESTAMP NOT NULL,
+        owner BIGINT NOT NULL,
+        message VARCHAR(128) NOT NULL
+
+        
     )` 
 }
 export default dbQuery;

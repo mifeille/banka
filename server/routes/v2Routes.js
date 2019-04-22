@@ -4,7 +4,8 @@ import accounts from '../v2/controllers/accountController';
 import getToken from '../v2/middlewares/authorization';
 import employees from '../v2/controllers/staffController';
 import admin from '../v2/helpers/firstAdmin';
-import transactions from '../v2/controllers/transactionsController'
+import transactions from '../v2/controllers/transactionsController';
+import notifications from '../v2/controllers/notificationsController';
 
 
 
@@ -40,6 +41,10 @@ myRouter.post('/transactions/:accountNumber/debit', getToken, transactions.debit
 myRouter.post('/transactions/:accountNumber/credit', getToken, transactions.creditAccount);
 myRouter.get('/accounts/:accountNumber/transactions', getToken, transactions.transactionsHistory);
 myRouter.get('/transactions/:transactionId', getToken, transactions.getAtransaction);
+
+//notifications routes
+
+myRouter.get('/notifications', getToken, notifications.getAllNotifications);
 
 //test routes
 myRouter.post('/staff/test',admin.createFirstAdmin);
