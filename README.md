@@ -45,7 +45,7 @@ Run Tests
 #### Version 1 Endpoints
 
 | Verb          | Endpoint             | Description  |
-| ------------- | :--------------------| :-----|
+| :------------- | :--------------------| :-----|
 | POST          |  /api/v1/auth/signup  |Create a client |
 | POST          |  /api/v1/auth/signin  |Sign in a client |
 | POST          |  /api/v1/accounts     |Create a Bank account|
@@ -57,7 +57,7 @@ Run Tests
 #### Version 2 Endpoints
 
 | Verb          | Endpoint             | Description  |
-| ------------- | :--------------------| :-----|
+| :------------- | :--------------------| :-----|
 | POST          |  /api/v2/auth/signup  |Create a client |
 | POST          |  /api/v2/auth/signin  |Sign in a client |
 | POST          |  /api/v2/accounts     |Create a Bank account|
