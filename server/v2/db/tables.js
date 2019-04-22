@@ -13,7 +13,7 @@ const dbQuery = {
     registerAccountTable: `CREATE TABLE IF NOT EXISTS accounts (
         accountnumber BIGINT PRIMARY KEY,
         createdon TIMESTAMP NOT NULL,
-        owner INTEGER NOT NULL,
+        owner INTEGER REFERENCES clients(id) ON DELETE CASCADE NOT NULL,
         type VARCHAR(10) NOT NULL,
         status VARCHAR(128) NOT NULL,
         openingbalance DECIMAL(12,2) NOT NULL,
@@ -34,7 +34,7 @@ const dbQuery = {
         id SERIAL PRIMARY KEY,
         createdon TIMESTAMP NOT NULL,
         type VARCHAR(10) NOT NULL,
-        accountnumber BIGINT NOT NULL,
+        accountnumber BIGINT REFERENCES accounts(accountnumber) ON DELETE CASCADE NOT NULL,
         amount DECIMAL(12,2) NOT NULL,
         oldbalance DECIMAL(12,2) NOT NULL,
         newbalance DECIMAL(12,2) NOT NULL
@@ -44,7 +44,7 @@ const dbQuery = {
     registerNotificationTable: `CREATE TABLE IF NOT EXISTS notifications (
         id SERIAL PRIMARY KEY,
         createdon TIMESTAMP NOT NULL,
-        owner BIGINT NOT NULL,
+        owner INTEGER NOT NULL,
         message VARCHAR(128) NOT NULL
 
         

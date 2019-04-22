@@ -42,6 +42,23 @@ const registerClientsTable = async () => {
           console.log(err);
       })
 
+      const registerAccountsTable = async () => {
+        const queryText = queryDb.registerAccountTable;
+        await pool.query(queryText)
+          .then(async () => {
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      (async () => {
+          await registerAccountsTable();
+          console.log('Accounts');
+        })()
+        .catch((err) => {
+            console.log(err);
+        })
+
       const registertransactionsTable = async () => {
         const queryText = queryDb.registerTransactionTable ;
         await pool.query(queryText)
@@ -65,32 +82,15 @@ const registerClientsTable = async () => {
             .then(async () => {
             })
             .catch((err) => {
+              pool.end();
               console.log(err);
             });
         };
         (async () => {
             await registerNotificationsTable ();
-            console.log('Transactions');
+            pool.end();
+            console.log('Notifications');
           })()
           .catch((err) => {
               console.log(err);
           })
-
-    const registerAccountsTable = async () => {
-      const queryText = queryDb.registerAccountTable;
-      await pool.query(queryText)
-        .then(async () => {
-        })
-        .catch((err) => {
-          console.log(err);
-          pool.end();
-        });
-    };
-    (async () => {
-        await registerAccountsTable();
-        pool.end();
-        console.log('Accounts');
-      })()
-      .catch((err) => {
-          console.log(err);
-      })

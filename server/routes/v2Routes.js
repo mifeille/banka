@@ -28,6 +28,7 @@ myRouter.get('/accounts',getToken,employees.getAllAccounts);
 myRouter.get('/accounts?status=active', getToken ,employees.getAllAccounts);
 myRouter.get('/accounts?status=dormant', getToken ,employees.getAllAccounts);
 myRouter.get('/accounts?status=draft', getToken ,employees.getAllAccounts);
+myRouter.get('/user/:emailAddress/accounts', getToken ,employees.getUserAccounts);
 
 //staff accounts
 
