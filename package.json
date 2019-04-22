@@ -9,7 +9,7 @@
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",
-    "initialDb": "babel-node server/v2/db/createTables"
+    "initialDb": "babel-node server/v2/db/createTables "
   },
   "engines": {
     "node": "11.14.0"
