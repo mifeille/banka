@@ -42,126 +42,36 @@ Run Tests
 
 ### API Endpoints
 
-#### Create a client (user) 
+#### Version 1 Endpoints
 
-POST /auth/signup
+| Verb          | Endpoint             | Description  |
+| ------------- | :--------------------| :-----|
+| POST          |  /api/v1/auth/signup  |Create a client |
+| POST          |  /api/v1/auth/signin  |Sign in a client |
+| POST          |  /api/v1/accounts     |Create a Bank account|
+| PATCH         |  /api/v1/accounts/account-number |Activate or deactivate a Bank account|
+| DELETE        |  /api/v1/accounts/account-number | Delete a specific Bank account      |
+| POST          |  /api/v1/transactions/account-number/debit |Debit a Bank account       |
+| POST          |  /api/v1/transactions/account-number/credit | Credit a Bank account      |
 
-To test this endpoint, use the Banka application link below from [Heroku](https://www.heroku.com/) in [Postman](https://www.getpostman.com/)  
-https://bankamireille.herokuapp.com  
+#### Version 2 Endpoints
 
-In Postman:  
-Select POST as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/auth/signup`  
+| Verb          | Endpoint             | Description  |
+| ------------- | :--------------------| :-----|
+| POST          |  /api/v2/auth/signup  |Create a client |
+| POST          |  /api/v2/auth/signin  |Sign in a client |
+| POST          |  /api/v2/accounts     |Create a Bank account|
+| PATCH         |  /api/v2/accounts/account-number |Activate or deactivate a Bank account|
+| DELETE        |  /api/v2/accounts/account-number | Delete a specific Bank account      |
+| POST          |  /api/v2/transactions/account-number/debit |Debit a Bank account       |
+| POST          |  /api/v2/transactions/account-number/credit | Credit a Bank account    |
+| GET           |  /api/v2/accounts/account-number/transactions |View an account’s transaction history|
+| GET           | /api/v2/transactions/transaction-id |View a specific transaction |
+| GET           | /api/v2/user/user-email-address/accounts |View all accounts owned by a specific user (client) |
+| GET           | /api/v2/accounts/account-number | View a specific account’s details |
+| GET           | /api/v2/accounts | View a list of all bank accounts |
+| GET           | /api/v2/accounts?status=active | View a list of all active bank accounts |
+| GET           | /api/v2/accounts?status=dormant | View a list of all dormant bank accounts |
+| GET           | /api/v2/accounts?status=draft          | View a list of all draft bank accounts|
+| GET           | /api/v2/notifications              | View notifications about transactions |
 
-Go to the body and create a user account
-
-```
-{
-    "firstName": "Solange",
-    "lastName" : "Umuhire",
-    "email": "umuhire@banka.com",
-    "password" : "umuhire1!",
-    "confirmPassword" : "umuhire1!"
-      
-}
-```
-
-#### Sign in a client (user)
-
-POST /auth/signin
-
-In Postman:  
-Select POST as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/auth/signin`  
-
-Go to the body and log in
-
-```
-{
-    "email": "umuhire@banka.com",
-    "password" : "umuhire1!"
-}
-```
-
-#### Create a Bank account
-
-POST /accounts 
-
-In Postman:  
-Select POST as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/accounts`  
-
-Go to the body and create a Bank account
-
-```
-{
-    "firstName": "Blaise",
-    "lastName" : "Kalima",
-    "email": "kalimaB@banka.com",
-    "type": "savings"
-}
-```
-
-#### To activate or deactivate a Bank account
-
-PATCH /accounts/account-number  
-
-In Postman:  
-Select PATCH as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/accounts/account-number`  
-
-Go to the body and activate or deactivate a Bank account
-
-```
-{
-    "status": "active"
-}
-```
-
-#### To delete a specific Bank account
-
-DELETE /accounts/account-number  
-
-In Postman:  
-Select DELETE as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/accounts/account-number` 
-
-```
-{
-    "status": 200,
-    "message": "Bank account successfully deleted"
-}
-```
-
-#### To debit a Bank account
-
-POST /transactions/account-number/debit  
-
-In Postman:  
-Select POST as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/transactions/account-number/debit`  
-
-Go to the body and debit a Bank account
-
-```
-{
-    "amount" : 45000
-}
-```
-
-
-#### To credit a Bank account
-
-POST /transactions/account-number/credit  
-
-In Postman:  
-Select POST as the request method and use this endpoint  
-`https://bankamireille.herokuapp.com/api/v1/transactions/account-number/credit`  
-
-Go to the body and credit a Bank account
-
-```
-{
-    "amount" : 45000
-}
-```
