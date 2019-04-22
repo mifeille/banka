@@ -8,6 +8,7 @@ dotenv.config();
 const pool = new Pool({ 
    connectionString : process.env.DATABASE_URL
 });
+
 const registerClientsTable = async () => {
     const queryText = queryDb.registerClientTable;
     await pool.query(queryText)
@@ -25,24 +26,43 @@ const registerClientsTable = async () => {
         console.log(err);
     })
 
-    const registerEmployeesTable = async () => {
-      const queryText = queryDb.registerStaffTable ;
-      await pool.query(queryText)
-        .then(async () => {
-        })
+     const registerAccountsTable = async () => {
+      await registerClientsTable();
+        const queryText = queryDb.registerAccountTable;
+        await pool.query(queryText)
+          .then(async () => {
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+      (async () => {
+          await registerAccountsTable();
+          console.log('Accounts');
+        })()
         .catch((err) => {
-          console.log(err);
-        });
-    };
-    (async () => {
-        await registerEmployeesTable ();
-        console.log(' Staff');
-      })()
-      .catch((err) => {
-          console.log(err);
-      })
+            console.log(err);
+        })
+
+        const registerEmployeesTable = async () => {
+          const queryText = queryDb.registerStaffTable ;
+          await pool.query(queryText)
+            .then(async () => {
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        (async () => {
+            await registerEmployeesTable ();
+            console.log(' Staff');
+          })()
+          .catch((err) => {
+              console.log(err);
+          })
 
       const registertransactionsTable = async () => {
+        await registerAccountsTable();
         const queryText = queryDb.registerTransactionTable ;
         await pool.query(queryText)
           .then(async () => {
@@ -65,32 +85,16 @@ const registerClientsTable = async () => {
             .then(async () => {
             })
             .catch((err) => {
+              
               console.log(err);
             });
         };
         (async () => {
             await registerNotificationsTable ();
-            console.log('Transactions');
+           
+            console.log('Notifications');
           })()
           .catch((err) => {
               console.log(err);
           })
-
-    const registerAccountsTable = async () => {
-      const queryText = queryDb.registerAccountTable;
-      await pool.query(queryText)
-        .then(async () => {
-        })
-        .catch((err) => {
-          console.log(err);
-          pool.end();
-        });
-    };
-    (async () => {
-        await registerAccountsTable();
-        pool.end();
-        console.log('Accounts');
-      })()
-      .catch((err) => {
-          console.log(err);
-      })
+      

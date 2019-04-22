@@ -129,67 +129,112 @@ const authStaff = {
     }
   },
 
-  async getAllAccounts(req, res){
-    let decodedEmail;
-    jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
-        if(err){
-            return res.status(403).json({
-                status:403,
-                error:"A token must to be provided!"
+    async getAllAccounts(req, res){
+        let decodedEmail;
+        jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+            if(err){
+                return res.status(403).json({
+                    status:403,
+                    error:"A token must to be provided!"
+                });
+            }
+            decodedEmail = decoded.email;
+        });
+
+        const admin = 'SELECT * FROM staff WHERE email = $1';
+        const findAdmin = await db.query(admin,[decodedEmail] );
+        if(findAdmin.rows == 0) {
+            return res.status(400).json({
+                status:400,
+                message: "You do not have the right to view all bank accounts"
+            });
+        } 
+
+        if(findAdmin.rows[0].isadmin !== 'true') {
+            return res.status(400).json({
+                status:400,
+                message: "You do not have the right to view all bank accounts"
             });
         }
-        decodedEmail = decoded.email;
-    });
+        if(req.query.status) {
 
-    const admin = 'SELECT * FROM staff WHERE email = $1';
-    const findAdmin = await db.query(admin,[decodedEmail] );
-    if(findAdmin.rows == 0) {
-        return res.status(400).json({
-            status:400,
-            message: "You do not have the right to view all bank accounts"
-        });
-    } 
+            const status=req.query.status;
+            const account = 'SELECT * FROM accounts WHERE status = $1';
+            const query = await db.query(account, [status]);
+            if(query.rows == 0) {
+                return res.status(404).json({
+                    status:404,
+                    message: `No ${status} Bank accounts found!`
+                }); 
+            } 
+            
+            else {
+                return res.status(200).json({
+                    status :200,
+                    message: `${status} Bank accounts`,
+                    data: query.rows
 
-    if(findAdmin.rows[0].isadmin !== 'true') {
-        return res.status(400).json({
-            status:400,
-            message: "You do not have the right to view all bank accounts"
-        });
-    }
-    if(req.query.status) {
+                });
+            } 
 
-        const status=req.query.status;
-        const account = 'SELECT * FROM accounts WHERE status = $1';
-        const query = await db.query(account, [status]);
-        if(query.rows == 0) {
-            return res.status(404).json({
-                status:404,
-                message: `No ${status} Bank accounts found!`
-            }); 
         } 
-        
         else {
-            return res.status(200).json({
+            const allAccounts = 'SELECT * FROM accounts';
+            const { rows} = await db.query(allAccounts);
+            return res.send({
                 status :200,
-                message: `${status} Bank accounts`,
-                data: query.rows
+                message: "The list of all Bank accounts",
+                data: rows
+            })
+        }
+    },
 
+    async getUserAccounts(req, res){
+        let decodedEmail;
+        const email = req.params.emailAddress;
+        jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
+            if(err){
+                return res.status(403).json({
+                    status:403,
+                    error:"A token must to be provided!"
+                });
+            }
+            decodedEmail = decoded.email;
+        });
+    
+        const admin = 'SELECT * FROM staff WHERE email = $1';
+        const findAdmin = await db.query(admin,[decodedEmail] );
+        if(findAdmin.rows == 0) {
+            return res.status(400).json({
+                status:400,
+                message: "You do not have the right to view user bank accounts"
             });
         } 
+    
+        if(findAdmin.rows[0].isadmin !== 'true') {
+            return res.status(400).json({
+                status:400,
+                message: "You do not have the right to view user bank accounts"
+            });
+        } else {
+            const view = 'SELECT clients.email,accounts.accountnumber,accounts.owner,accounts.createdon,accounts.type,accounts.status,accounts.balance FROM clients INNER JOIN accounts ON accounts.owner= clients.id AND email = $1';
+            const value = await db.query(view,[email] );
+            if(value.rowCount > 0) {
+                return res.status(200).json({
+                    status :200,
+                    message: `${email} Bank accounts`,
+                    data: value.rows
 
-    } 
-    else {
-        const allAccounts = 'SELECT * FROM accounts';
-        const { rows} = await db.query(allAccounts);
-        return res.send({
-            status :200,
-            message: "The list of all Bank accounts",
-            data: rows
-        })
+                });
+            } else {
+                return res.status(404).json({
+                    status :404,
+                    message: `No Bank accounts found for the user ${email}`
+                
+                });
+            } 
+        }   
     }
-}
-
-
 }
 
 export default authStaff;

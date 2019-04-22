@@ -151,7 +151,7 @@ const accounts = {
                     message: "Bank account not found"
                 }); 
             }
-            if(query.rows[0].balance) {
+            if(query.rows[0].balance > 0) {
                 return res.status(400).json({
                     status:400,
                     message: `You can not delete this account,bacause it has ${query.rows[0].balance} on it`
