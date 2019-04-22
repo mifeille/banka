@@ -59,6 +59,23 @@ const registerClientsTable = async () => {
             console.log(err);
         })
 
+        const registerNotificationsTable = async () => {
+          const queryText = queryDb.registerNotificationTable ;
+          await pool.query(queryText)
+            .then(async () => {
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        };
+        (async () => {
+            await registerNotificationsTable ();
+            console.log('Transactions');
+          })()
+          .catch((err) => {
+              console.log(err);
+          })
+
     const registerAccountsTable = async () => {
       const queryText = queryDb.registerAccountTable;
       await pool.query(queryText)

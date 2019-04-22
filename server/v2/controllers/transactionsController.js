@@ -5,7 +5,7 @@ import db from '../db/dbconnection'
 const transaction = {
 
     async debitAccount(req, res){
-        let decodedEmail;
+        let decodedEmail,owner;
         jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
             if(err){
                 return res.status(403).json({
@@ -41,6 +41,7 @@ const transaction = {
                 }); 
             }
             if(accountDebit.rows){
+                owner = accountDebit.rows[0].owner;
                 if(accountDebit.rows[0].status === "draft" || accountDebit.rows[0].status==="dormant"){
                     return res.status(400).json({
                         status :400,
@@ -50,7 +51,6 @@ const transaction = {
 
                     const account = 'SELECT * FROM accounts WHERE accountnumber = $1';
                     const findAccount = await db.query(account, [accountNumb]);
-                    console.log( findAccount.rows);
                     const debit = {
                         createdon : moment(new Date()),
                         type : "debit",
@@ -59,11 +59,15 @@ const transaction = {
                         oldbalance : findAccount.rows[0].balance,
                         newbalance : parseFloat (findAccount.rows[0].balance)+ parseFloat(req.body.amount) ,
                     }
-                    console.log(debit.newbalance);
+                    
                     const transaction = 'INSERT INTO transactions (createdon,type,accountnumber,amount,oldbalance,newbalance)VALUES ($1, $2, $3, $4, $5, $6)';
                     const accountTransation = await db.query(transaction, [debit.createdon,debit.type,debit.accountnumber,debit.amount,debit.oldbalance,debit.newbalance]);
                     const accountUpdate = 'UPDATE accounts SET balance =$1 WHERE accountnumber = $2';
                     const accountDebit = await db.query(accountUpdate, [debit.newbalance, accountNumb]);
+
+                    const notification = 'INSERT INTO notifications (createdon,owner,message)VALUES ($1, $2, $3)';
+                    const message = `Your Bank account ${debit.accountnumber} has been debited of ${debit.amount}. For more details check your account transactions.`;
+                    const notificationQuery = await db.query(notification, [debit.createdon,owner,message]);
 
                     let accountNumber = debit.accountnumber, amount = debit.amount, transactionType = debit.type, accountBalance = debit.newbalance, cashier = (findCashier.rows[0].firstname +' ' +findCashier.rows[0].lastname);
                     return res.status(201).json({
@@ -78,7 +82,7 @@ const transaction = {
 
     async creditAccount(req, res){
 
-        let decodedEmail;
+        let decodedEmail,owner;
         jwt.verify(req.token,process.env.JWTSECRETKEY,(err,decoded)=>{
             if(err){
                 return res.status(403).json({
@@ -114,8 +118,8 @@ const transaction = {
                     message: "Bank account not found"
                 }); 
             }
-            console.log(accountNumb);
             if(accountCredit.rows){
+                owner = accountCredit.rows[0].owner;
                 if(accountCredit.rows[0].status ==="draft" || accountCredit.rows[0].status==="dormant"){
                     return res.status(400).json({
                         status :400,
@@ -145,6 +149,10 @@ const transaction = {
 
                     const accountUpdate = 'UPDATE accounts SET balance =$1 WHERE accountnumber = $2';
                     const accountCredit = await db.query(accountUpdate, [credit.newbalance, credit.accountnumber]);
+
+                    const notification = 'INSERT INTO notifications (createdon,owner,message)VALUES ($1, $2, $3)';
+                    const message = `Your Bank account ${credit.accountnumber} has been credited of ${credit.amount}. For more details check your account transactions.`;
+                    const notificationQuery = await db.query(notification, [credit.createdon,owner,message]);
 
                     let accountNumber = credit.accountnumber, amount = credit.amount, transactionType = credit.type, accountBalance = credit.newbalance, cashier = (findCashier.rows[0].firstname +' ' +findCashier.rows[0].lastname);
                     return res.status(201).json({
