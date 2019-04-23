@@ -109,7 +109,7 @@
           "tags": [
             "User Sign up"
           ],
-          "description": "Get all Bank clients",
+          "description": "User/Client Sign up",
           "parameters": [
             {
               "name": "user",
