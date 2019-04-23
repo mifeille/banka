@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
-    "start": "nodemon --exec babel-node server/server.js",
+    "start": "npm run initialDb && nodemon --exec babel-node server/server.js",
     "build": "babel server/server.js --out-dir build",
     "serve": "node server/server.js",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",
