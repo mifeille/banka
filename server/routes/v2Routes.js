@@ -1,60 +1,53 @@
-import { Router } from "express";
-import users from "../v2/controllers/clientsController";
+import { Router } from 'express';
+import users from '../v2/controllers/clientsController';
 import accounts from '../v2/controllers/accountController';
-import getToken from '../v2/middlewares/authorization';
+import authorization from '../v2/middlewares/authorization';
 import employees from '../v2/controllers/staffController';
 import admin from '../v2/helpers/firstAdmin';
 import transactions from '../v2/controllers/transactionsController';
 import notifications from '../v2/controllers/notificationsController';
 
 
-
-const myRouter=Router();
+const myRouter = Router();
 
 // users routes
 
-myRouter.get('/users',users.getAll);
-myRouter.post('/auth/signup',users.registerUser);
-myRouter.post('/auth/signin',users.loginUser);
+myRouter.get('/users', users.getAll);
+myRouter.post('/auth/signup', users.registerUser);
+myRouter.post('/auth/signin', users.loginUser);
 
-//bank account routes
+// bank account routes
 
-myRouter.post('/accounts', getToken, accounts.createAccount);
-myRouter.patch('/accounts/:accountNumber', getToken, accounts.updateAccount);
-myRouter.delete('/accounts/:accountNumber',getToken, accounts.deleteAccount);
-myRouter.get('/user/accounts',getToken,accounts.userAccount);
-myRouter.get('/accounts/:accountNumber',getToken,accounts.userFindAccount);
-myRouter.get('/accounts',getToken,employees.getAllAccounts);
-myRouter.get('/accounts?status=active', getToken ,employees.getAllAccounts);
-myRouter.get('/accounts?status=dormant', getToken ,employees.getAllAccounts);
-myRouter.get('/accounts?status=draft', getToken ,employees.getAllAccounts);
-myRouter.get('/user/:emailAddress/accounts', getToken ,employees.getUserAccounts);
+myRouter.post('/accounts', authorization, accounts.createAccount);
+myRouter.patch('/accounts/:accountNumber', authorization, accounts.updateAccount);
+myRouter.delete('/accounts/:accountNumber', authorization, accounts.deleteAccount);
+myRouter.get('/user/accounts', authorization, accounts.userAccount);
+myRouter.get('/accounts/:accountNumber', authorization, accounts.userFindAccount);
+myRouter.get('/accounts', authorization, employees.getAllAccounts);
+myRouter.get('/accounts?status=active', authorization, employees.getAllAccounts);
+myRouter.get('/accounts?status=dormant', authorization, employees.getAllAccounts);
+myRouter.get('/accounts?status=draft', authorization, employees.getAllAccounts);
+myRouter.get('/user/:emailAddress/accounts', authorization, employees.getUserAccounts);
 
-//staff accounts
+// staff accounts
 
-myRouter.post('/staff/auth/signup',getToken, employees.registerStaff);
-myRouter.post('/staff/auth/signin',employees.loginStaff);
+myRouter.post('/staff/auth/signup', authorization, employees.registerStaff);
+myRouter.post('/staff/auth/signin', employees.loginStaff);
 
 
 // transaction routes
 
-myRouter.post('/transactions/:accountNumber/debit', getToken, transactions.debitAccount);
-myRouter.post('/transactions/:accountNumber/credit', getToken, transactions.creditAccount);
-myRouter.get('/accounts/:accountNumber/transactions', getToken, transactions.transactionsHistory);
-myRouter.get('/transactions/:transactionId', getToken, transactions.getAtransaction);
+myRouter.post('/transactions/:accountNumber/debit', authorization, transactions.debitAccount);
+myRouter.post('/transactions/:accountNumber/credit', authorization, transactions.creditAccount);
+myRouter.get('/accounts/:accountNumber/transactions', authorization, transactions.transactionsHistory);
+myRouter.get('/transactions/:transactionId', authorization, transactions.getAtransaction);
 
-//notifications routes
+// notifications routes
 
-myRouter.get('/notifications', getToken, notifications.getAllNotifications);
+myRouter.get('/notifications', authorization, notifications.getAllNotifications);
 
-//test routes
-myRouter.post('/staff/test',admin.createFirstAdmin);
-
-
-
-
-
-
+// test routes
+myRouter.post('/staff/test', admin.createFirstAdmin);
 
 
 export default myRouter;
