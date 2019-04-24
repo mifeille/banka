@@ -1,6 +1,4 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import moment from 'moment';
 import db from '../db/dbconnection';
 
 const firstAdmin = {
@@ -15,8 +13,9 @@ const firstAdmin = {
     };
 
 
-    const query = 'INSERT INTO staff (firstname,lastname,email,password,type,isadmin) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
-    const values = [staff.firstname, staff.lastname, staff.email, staff.password, staff.type, staff.isadmin];
+    const query = 'INSERT INTO users (firstname,lastname,email,password,type,isadmin) VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (email) DO NOTHING RETURNING *';
+    const values = [staff.firstname, staff.lastname, staff.email,
+      staff.password, staff.type, staff.isadmin];
     const result = await db.query(query, values);
     const token = jwt.sign({
       email: staff.email,
@@ -25,13 +24,14 @@ const firstAdmin = {
       expiresIn: '24h',
     });
     if (result) {
-      const id = result.rows[0].id; const firstName = result.rows[0].firstname; const lastName = result.rows[0].lastname; const email = result.rows[0].email; const type = result.rows[0].type; const
-        isAdmin = result.rows[0].isadmin;
+      const {
+        id, firstname, lastname, email, type, isadmin,
+      } = result.rows[0];
       return res.status(201).json({
         status: 201,
         message: 'Welcome to Banka, Your staff account has been created',
         data: {
-          token, id, firstName, lastName, email, type, isAdmin,
+          token, id, firstname, lastname, email, type, isadmin,
         },
       });
     }
