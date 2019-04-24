@@ -44,23 +44,6 @@ describe('User signup', () => {
       });
   });
 
-  it('should not register a new user with an already existing email', (done) => {
-    chai.request(server)
-      .post('/api/v2/auth/signup')
-      .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
-        email: 'kalisa@banka.com',
-        password: 'kalisa1!',
-        confirmPassword: 'kalisa1!',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(409);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
   it('should not register a user with an empty email field', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signup')
@@ -321,20 +304,6 @@ describe('User login', () => {
   after((done) => {
     db.query('DELETE FROM users WHERE email=\'kayirangwamelissaa@banka.com\'');
     done();
-  });
-
-  it('should login a user without the correct credentials', (done) => {
-    chai.request(server)
-      .post('/api/v2/auth/signin')
-      .send({
-        email: 'kayirangwamelissa@banka.com',
-        password: 'kayirangwa1!',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('object');
-        done();
-      });
   });
 
   it('should not log in user with an integer email ', (done) => {
