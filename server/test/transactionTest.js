@@ -2,8 +2,7 @@ import chaiHttp from 'chai-http';
 import chai from 'chai';
 import server from '../server';
 
-let userToken; let adminToken; let 
- staffToken;
+let adminToken; let staffToken;
 
 const expect = chai.expect;
 chai.use(chaiHttp);

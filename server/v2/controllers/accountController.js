@@ -74,15 +74,15 @@ const accounts = {
         }
         const account = 'SELECT * FROM accounts WHERE accountnumber = $1';
         const findAccount = await db.query(account, [accountNumber]);
-        if (!findAccount.rows) {
+        if (findAccount.rowCount === 0) {
           return res.status(404).json({
             status: 404,
             message: 'Bank account not found',
           });
         }
         if (findAccount.rows[0].status === req.body.status) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(409).json({
+            status: 409,
             message: `This account is already ${req.body.status}`,
           });
         }
