@@ -29,12 +29,28 @@ describe('User signup', () => {
       .send({
         firstName: 'Richard',
         lastName: 'Kalisa',
-        email: 'kalisa@banka.com',
+        email: 'kalisari@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should let a user create a user account with an email in use', (done) => {
+    chai.request(server)
+      .post('/api/v2/auth/signup')
+      .send({
+        firstName: 'Richard',
+        lastName: 'Kalisa',
+        email: 'kalisari@banka.com',
+        password: 'kalisa1!',
+        confirmPassword: 'kalisa1!',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(409);
         expect(res.body).to.be.an('object');
         done();
       });
@@ -282,7 +298,7 @@ describe('User login', () => {
     chai.request(server)
       .post('/api/v2/auth/signin')
       .send({
-        email: 'kalisa@banka.com',
+        email: 'kalisari@banka.com',
         password: 'kalisa1!',
       })
       .end((err, res) => {
@@ -340,7 +356,7 @@ describe('User login', () => {
         password: 'kalisa!',
       })
       .end((err, res) => {
-        expect(res).to.have.status(401);
+        expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         done();
       });

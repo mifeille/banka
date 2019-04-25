@@ -168,9 +168,9 @@ const accounts = {
   },
 
   async userFindAccount(req, res) {
-    const client = 'SELECT * FROM clients WHERE email = $1';
+    const client = 'SELECT * FROM users WHERE email = $1';
     const findClient = await db.query(client, [req.user.email]);
-    if (findClient.rows === 0) {
+    if (findClient.rowCount === 0) {
       return res.status(400).json({
         status: 400,
         message: 'You must create a user account first!',
@@ -180,7 +180,7 @@ const accounts = {
     const { accountNumber } = req.params;
     const findAccount = 'SELECT * FROM accounts WHERE owner = $1 AND accountnumber = $2';
     const allAccounts = await db.query(findAccount, [clientId, accountNumber]);
-    if (allAccounts.rows === 0) {
+    if (allAccounts.rowCount === 0) {
       return res.status(404).json({
         status: 404,
         message: 'No Bank account found!',
@@ -190,7 +190,7 @@ const accounts = {
     return res.status(200).json({
       status: 200,
       message: 'Account details',
-      data: accounts.rows[0],
+      data: allAccounts.rows,
     });
   },
 

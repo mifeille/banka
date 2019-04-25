@@ -14,7 +14,7 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({
-        email: 'kabeho@banka.com',
+        email: 'kabehola@banka.com',
         password: 'kabeho1!',
       })
       .end((err, res) => {
@@ -32,7 +32,7 @@ describe('User signup', () => {
       .send({
         firstName: 'Chantal',
         lastName: 'Mahoro',
-        email: 'mahoro@banka.com',
+        email: 'mahorocha@banka.com',
         password: 'mahoro1!',
         confirmPassword: 'mahoro1!',
         isAdmin: 'No',
@@ -52,7 +52,7 @@ describe('User signup', () => {
       .send({
         firstName: 'Richard',
         lastName: 'Kalisa',
-        email: 'mahoro@banka.com',
+        email: 'mahorocha@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
       })
@@ -105,7 +105,7 @@ describe('User signup', () => {
       .send({
         firstName: 'Richard',
         lastName: 'Kalisa',
-        email: 'kalisabanka.com',
+        email: 'kalisaabanka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
       })
@@ -395,7 +395,7 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({
-        email: 'kabeho@banka.com',
+        email: 'kabehola@banka.com',
         password: 'kabeho1' 
 })
       .end((err, res) => {
@@ -409,7 +409,7 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({
-        email: 'kabeho@banka.com',
+        email: 'kabehola@banka.com',
         password: 'kabeho1',
       })
       .end((err, res) => {

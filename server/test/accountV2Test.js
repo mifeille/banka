@@ -125,23 +125,8 @@ describe('Bank account activation and deactivation', () => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({
-        email: 'kabeho@banka.com',
-        password: 'kabeho1!',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an('object');
-        adminToken = res.body.data.token;
-        done();
-      });
-  });
-
-  it('It Should let an admin sign in with the right log in credentials', (done) => {
-    chai.request(server)
-      .post('/api/v2/staff/auth/signin')
-      .send({
-        email: 'kabeho@banka.com',
-        password: 'kabeho1!',
+        email: process.env.superUserEmail,
+        password: process.env.superUserPassword,
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -291,7 +276,7 @@ describe('Bank account activation and deactivation', () => {
 
   it('should notify the admin when the bank account to delete is not found', (done) => {
     chai.request(server)
-      .delete('/api/v1/accounts/2000155506')
+      .delete('/api/v2/accounts/2000155506')
       .set('Authorization', `Bearer ${adminToken}`)
       .send()
       .end((err, res) => {
