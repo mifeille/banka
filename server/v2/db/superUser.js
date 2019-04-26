@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import queryDb from './tables';
 import pool from './dbconnection';
 
 const superUser = async () => {
