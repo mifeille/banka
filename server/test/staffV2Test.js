@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 describe('User signup', () => {
   it('It Should let an admin sign in with the right log in credentials', (done) => {
     chai.request(server)
-      .post('/api/v2/staff/auth/signin')
+      .post('/api/v2/auth/signin')
       .send({
         email: process.env.superUserEmail,
         password: process.env.superUserPassword,
