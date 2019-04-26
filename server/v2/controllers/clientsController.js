@@ -83,7 +83,7 @@ const authUsers = {
         const used = 'SELECT * FROM users WHERE (email= $1)';
         const emailValue = [validEmail];
         const findUser = await db.query(used, emailValue);
-        if (!findUser.rows) {
+        if (findUser.rowCount === 0) {
           return res.status(401).json({
             status: 401,
             message: 'Incorrect email or password',
