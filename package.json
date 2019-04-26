@@ -4,15 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "NODEENV=TEST npm run dropTables && NODEENV=TEST npm run initialDb && NODEENV=TEST nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
-    "start": "NODEENV=DEV npm run initialDb && NODEENV=DEV nodemon --exec babel-node server/server.js",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
+    "start": "nodemon --exec babel-node server/server.js",
     "build": "npm run clear && babel server/server.js --out-dir build",
     "starter": "node build/server.js",
     "clear": "rm -rf build",
-    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",
-    "initialDb": "babel-node server/v2/db/createTables ",
-    "initialDbTest": "NODEENV=TEST babel-node server/v2/db/createTables ",
-    "dropTables": "NODEENV=TEST babel-node server/v2/db/dropTables"
+    "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
     "node": "11.14.0"
