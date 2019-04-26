@@ -132,7 +132,7 @@ describe('Bank account activation and deactivation', () => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         adminToken = res.body.data.token;
-        console.log(res.body);
+        console.log(err);
         done();
       });
   });
