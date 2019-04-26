@@ -112,7 +112,7 @@ const authStaff = {
           const {
             id, firstname, lastname, email, type, isadmin,
           } = findUser.rows[0];
-          return res.status(200).json({
+          return res.status(401).json({
             status: 401,
             message: 'You have successfully log in Banka',
             data: {
