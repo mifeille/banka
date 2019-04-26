@@ -1,25 +1,13 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
-import jwt from 'jsonwebtoken';
 import server from '../server';
 
 
-let userToken; let accountnumb; let
+let userToken; let accountnumb; let adminToken; let
   cashierToken; let account2;
 
 const expect = chai.expect;
 chai.use(chaiHttp);
-
-let adminToken = jwt.sign({
-  email: process.env.superUserEmail,
-  firstname: 'Laetitia',
-  lastname: 'Kabeho',
-  type: 'staff',
-  isadmin: 'true',
-}, process.env.JWTSECRETKEY,
-{
-  expiresIn: '3h',
-});
 
 describe('Bank account creation', () => {
   it('should let a user create a user account with valid credentials', (done) => {
@@ -133,6 +121,22 @@ describe('Bank account creation', () => {
 });
 
 describe('Bank account activation and deactivation', () => {
+  it('It Should let an admin log in with right signin credentials', (done) => {
+    chai.request(server)
+      .post('/api/v2/auth/signin')
+      .send({
+        email: 'kabehola@banka.com',
+        password: 'kabeho1!',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        adminToken = res.body.data.token;
+        console.log(err);
+        done();
+      });
+  });
+
   it('It Should let an admin create a staff with right signup credentials', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signup')

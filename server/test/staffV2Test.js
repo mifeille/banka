@@ -14,8 +14,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signin')
       .send({
-        email: process.env.superUserEmail,
-        password: process.env.superUserPassword,
+        email: 'kabehola@banka.com',
+        password: 'kabeho1!',
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -24,18 +24,16 @@ describe('User signup', () => {
         done();
       });
   });
-
-  it('It Should let an admin create a staff with right signup credentials', (done) => {
+  it('should let an admin create a staff account ', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signup')
       .set('Authorization', `Bearer ${adminToken}`)
       .send({
-        firstName: 'Chantal',
-        lastName: 'Mahoro',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'mahorocha@banka.com',
-        password: 'mahoro1!',
-        confirmPassword: 'mahoro1!',
-        isAdmin: 'No',
+        password: 'kalisa11',
+        confirmPassword: 'kalisa11',
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
@@ -44,8 +42,24 @@ describe('User signup', () => {
         done();
       });
   });
-
-  it('should not register a new user with an already existing email', (done) => {
+  it('should give access to create staff account to admin only  ', (done) => {
+    chai.request(server)
+      .post('/api/v2/staff/auth/signup')
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send({
+        firstName: 'Richard',
+        lastName: 'Kalisa',
+        email: 'kalisa@banka.com',
+        password: 'kalisa11',
+        confirmPassword: 'kalisa11',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should not register a new staff with an already existing email', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signup')
       .set('Authorization', `Bearer ${adminToken}`)
@@ -331,24 +345,6 @@ describe('User signup', () => {
       });
   });
 
-  it('should give access to create staff account to admin only  ', (done) => {
-    chai.request(server)
-      .post('/api/v2/staff/auth/signup')
-      .set('Authorization', `Bearer ${cashierToken}`)
-      .send({
-        firstName: 'Richard',
-        lastName: 'Kalisa',
-        email: 'kalisa@banka.com',
-        password: 'kalisa11',
-        confirmPassword: 'kalisa11',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(403);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
   it('should not log in user with an integer email ', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
@@ -392,20 +388,6 @@ describe('User signup', () => {
   });
 
   it('should not login user with an incorrect email or password', (done) => {
-    chai.request(server)
-      .post('/api/v2/staff/auth/signin')
-      .send({
-        email: 'kabehola@banka.com',
-        password: 'kabeho1' 
-})
-      .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
-  it('should not login user with an incorrect password', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({

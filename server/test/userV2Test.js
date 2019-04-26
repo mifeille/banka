@@ -356,7 +356,7 @@ describe('User login', () => {
         password: 'kalisa!',
       })
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res.body).to.be.an('object');
         done();
       });
