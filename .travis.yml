@@ -9,7 +9,7 @@ services:
 before_script:
   - psql -c 'create database bankatest;' -U postgres
   - npm run initialDb
-  - psql -c `insert into users values ('Laetitia', 'Kabeho', 'kabehola@banka.com','$2b$10$iRVZqOFQiriZHTuaJuFE9er9zP03Nbl7oykEP94P.1Bzi0ZB/sn3e', 'staff', 'true') ON CONFLICT (email) DO NOTHING;` -U postgres
+  - psql -c 'insert into users values 'Laetitia', 'Kabeho', 'kabehola@banka.com','$2b$10$iRVZqOFQiriZHTuaJuFE9er9zP03Nbl7oykEP94P.1Bzi0ZB/sn3e', 'staff', 'true' ON CONFLICT email DO NOTHING;' -U postgres
 script:
  - npm test
 after_success:
