@@ -14,8 +14,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signin')
       .send({
-        email: 'kabehola@banka.com',
-        password: 'kabeho1!',
+        email: process.env.superUserEmail,
+        password: process.env.superUserPassword,
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
@@ -345,7 +345,7 @@ describe('User signup', () => {
       });
   });
 
-  it('should not log in user with an integer email ', (done) => {
+  it('should not log in staff with an integer email ', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({
@@ -359,7 +359,7 @@ describe('User signup', () => {
       });
   });
 
-  it('should not login user without email address', (done) => {
+  it('should not login staff without email address', (done) => {
     chai.request(server)
       .post('/api/v2/staff/auth/signin')
       .send({
@@ -372,24 +372,9 @@ describe('User signup', () => {
         done();
       });
   });
-
-  it('should not login user with an incorrect email address', (done) => {
+  it('should not login staff with an incorrect email or password', (done) => {
     chai.request(server)
-      .post('/api/v2/staff/auth/signin')
-      .send({
-        email: 'kabehotitiabanka.com',
-        password: 'kabeho1!',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
-  it('should not login user with an incorrect email or password', (done) => {
-    chai.request(server)
-      .post('/api/v2/staff/auth/signin')
+      .post('/api/v2/auth/signin')
       .send({
         email: 'kabehola@banka.com',
         password: 'kabeho1',
