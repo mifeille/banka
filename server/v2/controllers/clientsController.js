@@ -30,8 +30,8 @@ const authUsers = {
         }
         const hash = bcrypt.hashSync(req.body.password, 10);
         const user = {
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
+          firstname: req.body.firstName,
+          lastname: req.body.lastName,
           email: validEmail,
           password: hash,
           type: 'client',
@@ -51,7 +51,7 @@ const authUsers = {
           isadmin: result.rows[0].isadmin,
         }, process.env.JWTSECRETKEY,
         {
-          expiresIn: '24h',
+          expiresIn: '3h',
         });
         if (result) {
           const {
@@ -78,11 +78,12 @@ const authUsers = {
   async loginUser(req, res) {
     try {
       if (validation.validateLogin(req, res)) {
-        const trimEmail = req.body.email.trim();
+        const trimEmail = (req.body.email).trim();
+        const validEmail = trimEmail.toLowerCase();
         const used = 'SELECT * FROM users WHERE (email= $1)';
-        const emailValue = [trimEmail];
+        const emailValue = [validEmail];
         const findUser = await db.query(used, emailValue);
-        if (findUser.rows < 1) {
+        if (!findUser.rows) {
           return res.status(401).json({
             status: 401,
             message: 'Incorrect email or password',
@@ -104,7 +105,7 @@ const authUsers = {
             isadmin: findUser.rows[0].isadmin,
           }, process.env.JWTSECRETKEY,
           {
-            expiresIn: '24h',
+            expiresIn: '3h',
           });
           const {
             id, firstname, lastname, email, type, isadmin,

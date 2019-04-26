@@ -11,6 +11,12 @@ const transaction = {
         message: 'Only a cashier can credit a Bank account!',
       });
     }
+    if (findCashier.rows[0].type === 'client') {
+      return res.status(403).json({
+        status: 403,
+        message: 'Only a cashier can credit a Bank account!',
+      });
+    }
     if (findCashier.rows[0].isadmin === 'true') {
       return res.status(403).json({
         status: 403,
@@ -21,7 +27,7 @@ const transaction = {
     const account = 'SELECT * FROM accounts WHERE accountnumber = $1';
     const accountCredit = await db.query(account, [accountNumb]);
 
-    if (!accountCredit.rows) {
+    if (accountCredit.rowCount === 0) {
       return res.status(404).json({
         status: 404,
         message: 'Bank account not found',
@@ -33,6 +39,12 @@ const transaction = {
         return res.status(400).json({
           status: 400,
           message: 'You have to activate this account first',
+        });
+      }
+      if (!req.body.amount) {
+        return res.status(400).json({
+          status: 400,
+          message: 'The amount to credit is required',
         });
       }
 
@@ -80,17 +92,29 @@ const transaction = {
         message: 'Only a cashier can debit a Bank account!',
       });
     }
+    if (findCashier.rows[0].type === 'client') {
+      return res.status(403).json({
+        status: 403,
+        message: 'Only a cashier can debit a Bank account!',
+      });
+    }
     if (findCashier.rows[0].isadmin === 'true') {
       return res.status(403).json({
         status: 403,
         message: 'Only a cashier can debit a Bank account!',
       });
     }
+    if (!req.body.amount) {
+      return res.status(400).json({
+        status: 400,
+        message: 'The amount to debit is required!',
+      });
+    }
     const accountNumb = req.params.accountNumber;
     const account = 'SELECT * FROM accounts WHERE accountnumber = $1';
     const accountDebit = await db.query(account, [accountNumb]);
 
-    if (!accountDebit.rows) {
+    if (accountDebit.rowCount === 0) {
       return res.status(404).json({
         status: 404,
         message: 'Bank account not found',
@@ -111,7 +135,6 @@ const transaction = {
           message: 'You do not have that amount on your account',
         });
       }
-      // const allAccount = 'SELECT * FROM accounts WHERE accountnumber = $1';
       const accountC = await db.query(account, [accountNumb]);
       const debit = {
         createdon: moment(new Date()),
@@ -157,15 +180,34 @@ const transaction = {
       });
     }
     const { accountNumber } = req.params;
+    const acc = 'SELECT * FROM accounts WHERE accountnumber = $1';
+    const findAccount = await db.query(acc, [accountNumber]);
+    if (findAccount.rowCount === 0) {
+      return res.status(400).json({
+        status: 404,
+        message: 'Account not found!',
+      });
+    }
+    if (findAccount.rows[0].owner !== req.user.id) {
+      return res.status(400).json({
+        status: 400,
+        message: 'You do not have the right to view transactions on this account!',
+      });
+    }
+    if (findAccount.rows[0].owner !== req.user.id) {
+      return res.status(400).json({
+        status: 400,
+        message: 'You do not have the right to view transactions on this account!',
+      });
+    }
     const history = 'SELECT * FROM transactions WHERE accountnumber = $1';
     const transactionsHistory = await db.query(history, [accountNumber]);
-    if (findClient.rows === 0) {
+    if (findClient.rowCount === 0) {
       return res.status(400).json({
         status: 400,
         message: 'No transaction found on this account!',
       });
     }
-
     return res.status(200).json({
       status: 200,
       message: `${accountNumber} transaction history​ :`,
@@ -185,10 +227,20 @@ const transaction = {
     const { transactionId } = req.params;
     const findTransaction = 'SELECT * FROM transactions WHERE id = $1';
     const aTransaction = await db.query(findTransaction, [transactionId]);
-    if (aTransaction.rows === 0) {
+    if (aTransaction.rowCount === 0) {
       return res.status(404).json({
         status: 404,
         message: 'No transaction not found!',
+      });
+    }
+    const findAccount = 'SELECT * FROM accounts WHERE accountnumber = $1';
+    const account = await db.query(findAccount, [aTransaction.rows[0].accountnumber]);
+    console.log(account.rows[0].owner);
+
+    if (account.rows[0].owner !== req.user.id) {
+      return res.status(400).json({
+        status: 400,
+        message: 'You do not have the right to view this transaction!',
       });
     }
     return res.status(200).json({

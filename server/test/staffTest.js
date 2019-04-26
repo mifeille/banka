@@ -2,8 +2,9 @@ import chaiHttp from 'chai-http';
 import chai from 'chai';
 import server from '../server';
 
-let userToken; let adminToken; let 
- staffToken;
+
+let userToken; let adminToken; let
+  staffToken;
 
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -29,8 +30,8 @@ describe('Staff login', () => {
         {
           email: 'kabeho@banka.com',
           password: 'kabeho1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
@@ -85,8 +86,8 @@ describe('Staff login', () => {
       .post('/api/v1/staff/signin')
       .send({
         email: 'kabeho@banka.com',
-        password: 'kabeh1'
- })
+        password: 'kabeh1',
+      })
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body).to.be.an('object');
@@ -262,8 +263,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: 'kalisa1!',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -282,8 +283,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: 'kalisa1!',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -302,8 +303,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: 'kalisa1!',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -340,8 +341,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: 'kalisa1!',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -360,8 +361,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: 'kalisa1!',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -381,8 +382,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: '',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -401,8 +402,8 @@ describe('Staff signup', () => {
           email: 'kalisa@banka.com',
           password: 'kalisa 1!',
           confirmPassword: 'kalisa1!',
-        }
-)
+        },
+      )
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
@@ -464,5 +465,3 @@ describe('Staff signup', () => {
       });
   });
 });
-
-

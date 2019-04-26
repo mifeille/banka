@@ -22,18 +22,14 @@ describe('Users', () => {
 });
 
 describe('User signup', () => {
-  after((done) => {
-    db.query('DELETE FROM users WHERE email=\'kalisaar@banka.com\'');
-    done();
-  });
 
   it('should let a user create a user account with valid credentials', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
-        email: 'kalisaar@banka.com',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
+        email: 'kalisari@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
       })
@@ -43,13 +39,29 @@ describe('User signup', () => {
         done();
       });
   });
+  it('should let a user create a user account with an email in use', (done) => {
+    chai.request(server)
+      .post('/api/v2/auth/signup')
+      .send({
+        firstName: 'Richard',
+        lastName: 'Kalisa',
+        email: 'kalisari@banka.com',
+        password: 'kalisa1!',
+        confirmPassword: 'kalisa1!',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
 
   it('should not register a user with an empty email field', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: '',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -65,8 +77,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 2,
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -82,8 +94,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'kalisabanka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -99,8 +111,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: '',
-        lastname: 'Kalisa',
+        firstName: '',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -116,8 +128,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 1,
-        lastname: 'Kalisa',
+        firstName: 1,
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -129,12 +141,12 @@ describe('User signup', () => {
       });
   });
 
-  it('should accept only letters in the first name   ', (done) => {
+  it('should not accept numbers and white spaces in the first name   ', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Patri n',
-        lastname: 'Kalisa',
+        firstName: 'Patri n',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -150,8 +162,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: '',
+        firstName: 'Richard',
+        lastName: '',
         email: 'kalisa@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -167,8 +179,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Patrick',
-        lastname: 1,
+        firstName: 'Patrick',
+        lastName: 1,
         email: 'kalisa@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -180,12 +192,12 @@ describe('User signup', () => {
       });
   });
 
-  it('should accept only letters in the last name ', (done) => {
+  it('should not accept numbers and white spaces in the first name  ', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Patrick',
-        lastname: 'Kalis a',
+        firstName: 'Patrick',
+        lastName: 'Kalis a',
         email: 'kalisa@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
@@ -201,10 +213,9 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
-        password: '',
         confirmPassword: 'kalisa1!',
       })
       .end((err, res) => {
@@ -218,8 +229,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'kalisa 1!',
         confirmPassword: 'kalisa1!',
@@ -235,8 +246,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'sa1!',
         confirmPassword: 'sa1!',
@@ -252,8 +263,8 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'kalisa1',
         confirmPassword: 'kalisa1!',
@@ -269,11 +280,10 @@ describe('User signup', () => {
     chai.request(server)
       .post('/api/v2/auth/signup')
       .send({
-        firstname: 'Richard',
-        lastname: 'Kalisa',
+        firstName: 'Richard',
+        lastName: 'Kalisa',
         email: 'kalisa@banka.com',
         password: 'kalisa11',
-        confirmPassword: '',
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -284,28 +294,19 @@ describe('User signup', () => {
 });
 
 describe('User login', () => {
-  before((done) => {
+  it('should log in a user with the right credentials ', (done) => {
     chai.request(server)
-      .post('/api/v2/auth/signup')
+      .post('/api/v2/auth/signin')
       .send({
-        firstname: 'Melisse',
-        lastname: 'Kayirangwa',
-        email: 'kayirangwamelissaa@banka.com',
-        password: 'kayirangwa1!',
-        confirmPassword: 'kayirangwa1!',
+        email: 'kalisari@banka.com',
+        password: 'kalisa1!',
       })
       .end((err, res) => {
-        expect(res).to.have.status(201);
+        expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         done();
       });
   });
-
-  after((done) => {
-    db.query('DELETE FROM users WHERE email=\'kayirangwamelissaa@banka.com\'');
-    done();
-  });
-
   it('should not log in user with an integer email ', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signin')
@@ -347,44 +348,15 @@ describe('User login', () => {
         done();
       });
   });
-
-  it('should not login user with an incorrect email or password', (done) => {
-    chai.request(server)
-      .post('/api/v2/auth/signin')
-      .send({
-        email: 'kayirangw@banka.com',
-        password: 'kayirangwa1',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
   it('should not login user with an incorrect password', (done) => {
     chai.request(server)
       .post('/api/v2/auth/signin')
       .send({
-        email: 'kayirangwa@banka.com',
-        password: 'kayirangwa',
+        email: 'kalisa@banka.com',
+        password: 'kalisa!',
       })
       .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body).to.be.an('object');
-        done();
-      });
-  });
-
-  it('should not login user if the email is not registered', (done) => {
-    chai.request(server)
-      .post('/api/v2/auth/signin')
-      .send({
-        email: 'kay@banka.com',
-        password: 'kalima1!',
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(401);
+        expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
         done();
       });
@@ -395,7 +367,6 @@ describe('User login', () => {
       .post('/api/v2/auth/signin')
       .send({
         email: 'kayirangwa@banka.com',
-        password: '',
       })
       .end((err, res) => {
         expect(res).to.have.status(400);

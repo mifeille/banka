@@ -7,11 +7,11 @@ const authStaff = {
   async registerStaff(req, res) {
     try {
       if (validation.validateSignup(req, res)) {
-        const admin = 'SELECT * FROM staff WHERE email = $1';
+        const admin = 'SELECT * FROM users WHERE email = $1';
         const { rows } = await db.query(admin, [req.user.email]);
         if (!rows[0]) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(403).json({
+            status: 403,
             message: 'you do not have the right to create a staff account!',
           });
         }
@@ -26,15 +26,15 @@ const authStaff = {
             });
           }
           let isAdmin = false;
-          if (req.body.isadmin === 'Yes') {
+          if (req.body.isAdmin === 'Yes') {
             isAdmin = true;
           } else {
             isAdmin = false;
           }
           const hash = bcrypt.hashSync(req.body.password, 10);
           const staff = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
+            firstname: req.body.firstName,
+            lastname: req.body.lastName,
             email: req.body.email,
             password: hash,
             type: 'staff',
@@ -54,19 +54,19 @@ const authStaff = {
           });
           if (result) {
             const {
-              id, firstName, lastName, email, type, isadmin,
-            } = result.rows;
+              id, firstname, lastname, email, type, isadmin,
+            } = result.rows[0];
             return res.status(201).json({
               status: 201,
               message: 'Welcome to Banka, Your staff account has been created',
               data: {
-                token, id, firstName, lastName, email, type, isadmin,
+                token, id, firstname, lastname, email, type, isadmin,
               },
             });
           }
         } else {
-          return res.status(400).json({
-            status: 400,
+          return res.status(403).json({
+            status: 403,
             message: 'you do not have the right to create a staff account!',
           });
         }
@@ -132,7 +132,7 @@ const authStaff = {
   async getAllAccounts(req, res) {
     const admin = 'SELECT * FROM users WHERE email = $1';
     const findAdmin = await db.query(admin, [req.user.email]);
-    if (findAdmin.rows === 0) {
+    if (findAdmin.rowCount === 0) {
       return res.status(400).json({
         status: 400,
         message: 'You do not have the right to view all bank accounts',
@@ -146,10 +146,10 @@ const authStaff = {
       });
     }
     if (req.query.status) {
-      const { status } = req.query.status;
+      const { status } = req.query;
       const account = 'SELECT * FROM accounts WHERE status = $1';
       const query = await db.query(account, [status]);
-      if (query.rows === 0) {
+      if (query.rowCount === 0) {
         return res.status(404).json({
           status: 404,
           message: `No ${status} Bank accounts found!`,
@@ -175,21 +175,10 @@ const authStaff = {
   },
 
   async getUserAccounts(req, res) {
-    let decodedEmail;
-    const email = req.params.emailAddress;
-    jwt.verify(req.token, process.env.JWTSECRETKEY, (err, decoded) => {
-      if (err) {
-        return res.status(403).json({
-          status: 403,
-          error: 'A token must to be provided!',
-        });
-      }
-      decodedEmail = decoded.email;
-    });
-
-    const admin = 'SELECT * FROM staff WHERE email = $1';
-    const findAdmin = await db.query(admin, [decodedEmail]);
-    if (findAdmin.rows === 0) {
+    const { emailAddress } = req.params;
+    const admin = 'SELECT * FROM users WHERE email = $1';
+    const findAdmin = await db.query(admin, [req.user.email]);
+    if (findAdmin.rowCount === 0) {
       return res.status(400).json({
         status: 400,
         message: 'You do not have the right to view user bank accounts',
@@ -202,19 +191,19 @@ const authStaff = {
         message: 'You do not have the right to view user bank accounts',
       });
     }
-    const view = 'SELECT clients.email,accounts.accountnumber,accounts.owner,accounts.createdon,accounts.type,accounts.status,accounts.balance FROM clients INNER JOIN accounts ON accounts.owner= clients.id AND email = $1';
-    const value = await db.query(view, [email]);
+    const view = 'SELECT users.email,accounts.accountnumber,accounts.owner,accounts.createdon,accounts.type,accounts.status,accounts.balance FROM users INNER JOIN accounts ON accounts.owner= users.id AND email = $1';
+    const value = await db.query(view, [emailAddress]);
     if (value.rowCount > 0) {
       return res.status(200).json({
         status: 200,
-        message: `${email} Bank accounts`,
+        message: `${emailAddress} Bank accounts`,
         data: value.rows,
 
       });
     }
     return res.status(404).json({
       status: 404,
-      message: `No Bank accounts found for the user ${email}`,
+      message: `No Bank accounts found for the user ${emailAddress}`,
 
     });
   },

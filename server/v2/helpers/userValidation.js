@@ -3,33 +3,40 @@ import validator from 'validator';
 export default class validateUser {
   static validateSignup(req, res) {
     const whiteSpace = /\s/;
+    const containNumbers = /\d/;
     let email;
     if (req.body.email) {
       email = req.body.email.trim();
     } else {
       throw Error('Email should not be empty');
     }
-    if (!req.body.firstname) {
+    if (!req.body.firstName) {
       throw Error('First Name is required');
     }
 
-    if (whiteSpace.test(req.body.firstname)) {
+    if (whiteSpace.test(req.body.firstName)) {
       throw Error('Last name should not contain white spaces');
     }
+    if (containNumbers.test(req.body.firstName)) {
+      throw Error('First name should not contain numbers');
+    }
 
-    if (typeof req.body.firstname === 'number') {
+    if (typeof req.body.firstName === 'number') {
       throw Error('First Name should not be a number');
     }
-    if (typeof req.body.lastname === 'number') {
+    if (typeof req.body.lastName === 'number') {
       throw Error('Last Name should not be a number');
     }
 
-    if (!req.body.lastname) {
+    if (!req.body.lastName) {
       throw Error('Last Name is required');
     }
 
-    if (whiteSpace.test(req.body.lastname)) {
+    if (whiteSpace.test(req.body.lastName)) {
       throw Error('Last Name should not contain white spaces');
+    }
+    if (containNumbers.test(req.body.lastName)) {
+      throw Error('Last name should not contain numbers');
     }
 
     if (typeof email === 'number') {

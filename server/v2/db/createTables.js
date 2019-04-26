@@ -1,14 +1,9 @@
-import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import queryDb from './tables';
-
+import pool from './dbconnection';
 
 dotenv.config();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
 
 const registerClientsTable = async () => {
   const queryText = queryDb.registerClientTable;
@@ -82,9 +77,9 @@ const registerNotificationsTable = async () => {
   });
 
 const registerAdmin = async () => {
-  const hash = bcrypt.hashSync('kabeho1!', 10);
+  const hash = bcrypt.hashSync(process.env.superUserPassword, 10);
   const queryText = 'INSERT INTO users (firstname,lastname,email,password,type,isadmin) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (email) DO NOTHING';
-  const value = ['Laetitia', 'Kabeho', 'kabeho@banka.com', hash, 'staff', 'true'];
+  const value = ['Laetitia', 'Kabeho', process.env.superUserEmail, hash, 'staff', 'true'];
   await registerClientsTable();
   await pool.query(queryText, value)
     .then(async () => {

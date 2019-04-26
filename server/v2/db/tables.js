@@ -1,4 +1,3 @@
-// const dbQueries = {
 const registerClientTable = `CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         firstName VARCHAR(128) NOT NULL,

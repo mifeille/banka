@@ -3,7 +3,6 @@ import users from '../v2/controllers/clientsController';
 import accounts from '../v2/controllers/accountController';
 import authorization from '../v2/middlewares/authorization';
 import employees from '../v2/controllers/staffController';
-import admin from '../v2/helpers/firstAdmin';
 import transactions from '../v2/controllers/transactionsController';
 import notifications from '../v2/controllers/notificationsController';
 
@@ -45,9 +44,5 @@ myRouter.get('/transactions/:transactionId', authorization, transactions.getAtra
 // notifications routes
 
 myRouter.get('/notifications', authorization, notifications.getAllNotifications);
-
-// test routes
-myRouter.post('/staff/test', admin.createFirstAdmin);
-
 
 export default myRouter;
