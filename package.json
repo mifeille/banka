@@ -10,8 +10,8 @@
     "starter": "node build/server.js",
     "clear": "rm -rf build",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",
-    "initialDb": "babel-node server/v2/db/createTables ",
-    "initialDbTest": "NODEENV=TEST babel-node server/v2/db/createTables ",
+    "initialDb": "NODEENV=TEST babel-node server/v2/db/createTables",
+    "initialDbTest": "NODEENV=TEST babel-node server/v2/db/createTables",
     "dropTables": "NODEENV=TEST babel-node server/v2/db/dropTables"
   },
   "engines": {
