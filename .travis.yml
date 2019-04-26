@@ -7,7 +7,7 @@ cache:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database banka;' -U postgres
+
   - psql -c 'create database bankatest;' -U postgres
 script:
  - npm test

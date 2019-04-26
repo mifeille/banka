@@ -125,8 +125,8 @@ describe('Bank account activation and deactivation', () => {
     chai.request(server)
       .post('/api/v2/auth/signin')
       .send({
-        email: 'kabehola@banka.com',
-        password: 'kabeho1!',
+        email: process.env.superUserEmail,
+        password: process.env.superUserPassword,
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
