@@ -9,6 +9,7 @@ services:
 before_script:
   - psql -c 'create database banka;' -U postgres
   - psql -c 'create database bankatest;' -U postgres
+  - npm run initialDb
 script:
  - npm test
 after_success:

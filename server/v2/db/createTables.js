@@ -16,4 +16,5 @@ const createTables = async () => {
     console.log(err);
   }
 };
+
 export default createTables();
