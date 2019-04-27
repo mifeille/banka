@@ -1,6 +1,8 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
+import bcrypt from 'bcrypt';
 import server from '../server';
+import pool from '../v2/db/dbconnection';
 
 
 let userToken; let accountnumb; let adminToken; let
@@ -121,6 +123,46 @@ describe('Bank account creation', () => {
 });
 
 describe('Bank account activation and deactivation', () => {
+  before((done) => {
+    const hash = bcrypt.hashSync(process.env.PASSWORD_TEST, 10);
+    const firstAdmin = 'INSERT INTO users (firstname,lastname,email,password,type,isadmin) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (email) DO NOTHING';
+    const value = ['Aurore', 'Kayitesire', process.env.EMAIL_TEST, hash, 'staff', 'true'];
+    pool.query(firstAdmin, value);
+    done();
+  });
+  it('It Should let an admin log in with right signin credentials', (done) => {
+    chai.request(server)
+      .post('/api/v2/auth/signin')
+      .send({
+        email: process.env.EMAIL_TEST,
+        password: process.env.PASSWORD_TEST,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        adminToken = res.body.data.token;
+        done();
+      });
+  });
+  it('It Should let an admin create a staff with right signup credentials', (done) => {
+    chai.request(server)
+      .post('/api/v2/staff/auth/signup')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        firstName: 'Chantal',
+        lastName: 'Mahoro',
+        email: 'mahorocha@banka.com',
+        password: 'mahoro1!',
+        confirmPassword: 'mahoro1!',
+        isadmin: 'No',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+        cashierToken = res.body.data.token;
+        done();
+      });
+  });
   it('should give an error when a token is not provided', (done) => {
     chai.request(server)
       .patch('/api/v2/accounts/20001555061386016')
