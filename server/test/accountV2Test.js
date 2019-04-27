@@ -1,15 +1,29 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import server from '../server';
 import pool from '../v2/db/dbconnection';
+import tokenA from '../v2/helpers/testAdmin';
 
 dotenv.config();
 
 
-let userToken; let accountnumb; let adminToken; let
+let userToken; let accountnumb; let
   cashierToken; let account2;
+
+const adminToken = jwt.sign({
+  id: 1,
+  firstname: 'Laetitia',
+  lastname: 'Kabeho',
+  email: process.env.EMAIL,
+  type: 'staff',
+  isadmin: true,
+}, process.env.JWTSECRETKEY,
+{
+  expiresIn: '3h',
+});
 
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -126,6 +140,29 @@ describe('Bank account creation', () => {
 });
 
 describe('Bank account activation and deactivation', () => {
+  before((done) => {
+    done();
+  });
+  it('It Should create a user with right signup credentials', (done) => {
+    chai.request(server)
+      .post('/api/v2/staff/auth/signup')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        firstName: 'Richard',
+        lastName: 'Kalisa',
+        email: 'kalisarichardo@banka.com',
+        password: 'kalisa1!',
+        confirmPassword: 'kalisa1!',
+        isadmin: 'No',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+        console.log(adminToken);
+        cashierToken = res.body.data.token;
+        done();
+      });
+  });
   it('should give an error when a token is not provided', (done) => {
     chai.request(server)
       .patch('/api/v2/accounts/20001555061386016')
@@ -139,7 +176,8 @@ describe('Bank account activation and deactivation', () => {
       });
   });
 
-  it('should give an erron when a right token is not provided', (done) => {
+
+  it('should give an error when a right token is not provided', (done) => {
     chai.request(server)
       .delete('/api/v2/accounts/200015550')
       .send()
