@@ -15,11 +15,11 @@ let userToken; let accountnumb; let
 
 const adminToken = jwt.sign({
   id: 1,
-  email: 'kabehola@banka.com',
+  email: process.env.EMAIL,
   firstname: 'Laetitia',
   lastname: 'Kabeho',
   type: 'staff',
-  isadmin: true,
+  isadmin: 'true',
 }, process.env.JWTSECRETKEY,
 {
   expiresIn: '3h',
