@@ -15,9 +15,9 @@ let userToken; let accountnumb; let
 
 const adminToken = jwt.sign({
   id: 1,
+  email: process.env.EMAIL,
   firstname: 'Laetitia',
   lastname: 'Kabeho',
-  email: process.env.EMAIL,
   type: 'staff',
   isadmin: 'true',
 }, process.env.JWTSECRETKEY,
