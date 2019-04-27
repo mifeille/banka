@@ -15,7 +15,7 @@ const authStaff = {
             message: 'you do not have the right to create a staff account!',
           });
         }
-        if (adminFound.rows[0].isadmin === 'true') {
+        if (req.user.isadmin === 'true') {
           const used = 'SELECT * FROM users WHERE (email= $1)';
           const emailvalue = [req.body.email];
           const findStaff = await db.query(used, emailvalue);
