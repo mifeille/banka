@@ -8,14 +8,14 @@ const authStaff = {
     try {
       if (validation.validateSignup(req, res)) {
         const admin = 'SELECT * FROM users WHERE email = $1';
-        const { rows } = await db.query(admin, [req.user.email]);
-        if (!rows[0]) {
+        const adminFound = await db.query(admin, [req.user.email]);
+        if (adminFound.rowCount === 0) {
           return res.status(403).json({
             status: 403,
             message: 'you do not have the right to create a staff account!',
           });
         }
-        if (rows[0].isadmin === 'true') {
+        if (req.user.isadmin === 'true') {
           const used = 'SELECT * FROM users WHERE (email= $1)';
           const emailvalue = [req.body.email];
           const findStaff = await db.query(used, emailvalue);

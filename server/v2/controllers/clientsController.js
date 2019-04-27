@@ -105,7 +105,7 @@ const authUsers = {
             isadmin: findUser.rows[0].isadmin,
           }, process.env.JWTSECRETKEY,
           {
-            expiresIn: '3h',
+            expiresIn: '30days',
           });
           const {
             id, firstname, lastname, email, type, isadmin,
