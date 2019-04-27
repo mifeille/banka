@@ -1,13 +1,10 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
 import server from '../server';
-import pool from '../v2/db/dbconnection';
 
 dotenv.config();
 
-const adminTokena = process.env.token;
 let adminToken;
 let cashierToken;
 
@@ -40,6 +37,7 @@ describe('User signup', () => {
         email: 'mahorocha@banka.com',
         password: 'kalisa11',
         confirmPassword: 'kalisa11',
+        isAdmin: 'No',
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
@@ -75,6 +73,7 @@ describe('User signup', () => {
         email: 'mahorocha@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
+        isAdmin: 'No',
       })
       .end((err, res) => {
         expect(res).to.have.status(409);
@@ -92,6 +91,7 @@ describe('User signup', () => {
         lastName: 'Kalisa',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
+        isAdmin: 'No',
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -110,6 +110,7 @@ describe('User signup', () => {
         email: 2,
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
+        isAdmin: 'No',
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -353,7 +354,7 @@ describe('User signup', () => {
 
   it('should not log in staff with an integer email ', (done) => {
     chai.request(server)
-      .post('/api/v2/staff/auth/signin')
+      .post('/api/v2/auth/signin')
       .send({
         email: 1,
         password: 'kabeho1!',
@@ -367,9 +368,8 @@ describe('User signup', () => {
 
   it('should not login staff without email address', (done) => {
     chai.request(server)
-      .post('/api/v2/staff/auth/signin')
+      .post('/api/v2/auth/signin')
       .send({
-        email: '',
         password: 'kabeho1!',
       })
       .end((err, res) => {
@@ -394,7 +394,7 @@ describe('User signup', () => {
 
   it('should not login user if the email is not registered', (done) => {
     chai.request(server)
-      .post('/api/v2/staff/auth/signin')
+      .post('/api/v2/auth/signin')
       .send({
         email: 'kay@banka.com',
         password: 'kalima1!',
@@ -408,7 +408,7 @@ describe('User signup', () => {
 
   it('should not login user with no password', (done) => {
     chai.request(server)
-      .post('/api/v2/staff/auth/signin')
+      .post('/api/v2/auth/signin')
       .send({
         email: 'kabehotitia@banka.com',
 

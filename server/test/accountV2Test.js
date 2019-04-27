@@ -152,7 +152,7 @@ describe('Bank account activation and deactivation', () => {
         email: 'kalisarichardo@banka.com',
         password: 'kalisa1!',
         confirmPassword: 'kalisa1!',
-        isadmin: 'No',
+        isAdmin: 'No',
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
@@ -256,6 +256,20 @@ describe('Bank account activation and deactivation', () => {
       });
   });
 
+  it('should give an error if the bank account is not in the right format', (done) => {
+    chai.request(server)
+      .patch('/api/v2/accounts/éhaj222kezje')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        status: 'active',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+
   it('should let admin to fetch all bank accounts', (done) => {
     chai.request(server)
       .get('/api/v2/accounts')
@@ -267,8 +281,41 @@ describe('Bank account activation and deactivation', () => {
         done();
       });
   });
+  it('should let admin to fetch all user bank accounts', (done) => {
+    chai.request(server)
+      .get('/api/v2/user/kalisaa@banka.com/accounts')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send()
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should not let someone who is not an admin fetch all user bank accounts', (done) => {
+    chai.request(server)
+      .get('/api/v2/user/kalisaa@banka.com/accounts')
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send()
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should not let someone who is not an admin fetch all bank accounts', (done) => {
+    chai.request(server)
+      .get('/api/v2/accounts')
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send()
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
 
-  it('should give an erron when a right token is not provided', (done) => {
+  it('should give an error when the right token is not provided', (done) => {
     chai.request(server)
       .delete('/api/v2/accounts/200015550')
       .send()
@@ -282,6 +329,17 @@ describe('Bank account activation and deactivation', () => {
   it('should notify the admin when the bank account to delete is not found', (done) => {
     chai.request(server)
       .delete('/api/v2/accounts/2000155506')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send()
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should notify the admin when the bank account to delete is not in the right format', (done) => {
+    chai.request(server)
+      .delete('/api/v2/accounts/sjksdk1506')
       .set('Authorization', `Bearer ${adminToken}`)
       .send()
       .end((err, res) => {
@@ -317,6 +375,19 @@ describe('Credit a bank account', () => {
         done();
       });
   });
+  it('should give an error if the bank account bank account is in a wrong format', (done) => {
+    chai.request(server)
+      .post('/api/v2/transactions/jdKBDB:b!89877jbd/credit')
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send({
+        amount: 45000,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
 
   it('should give an error if a token is not provided', (done) => {
     chai.request(server)
@@ -334,7 +405,20 @@ describe('Credit a bank account', () => {
     chai.request(server)
       .post(`/api/v2/transactions/${accountnumb}/credit`)
       .set('Authorization', `Bearer ${cashierToken}`)
-      .send({     
+      .send()
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+
+  it('should give an error if the amount is not in the right format', (done) => {
+    chai.request(server)
+      .post(`/api/v2/transactions/${accountnumb}/credit`)
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send({
+        amount: '4500df0',
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -400,7 +484,19 @@ describe('Debit a bank account', () => {
         done();
       });
   });
-
+  it('should give an error if the bank account bank account is in a wrong format', (done) => {
+    chai.request(server)
+      .post('/api/v2/transactions/jdKBDB:b!89877jbd/debit')
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send({
+        amount: 45000,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
   it('should give an error when a token is not provided', (done) => {
     chai.request(server)
       .post('/api/v2/transactions/10001555061257616/debit')
@@ -413,7 +509,19 @@ describe('Debit a bank account', () => {
         done();
       });
   });
-
+  it('should give an error if the amount is not in the right format', (done) => {
+    chai.request(server)
+      .post(`/api/v2/transactions/${accountnumb}/debit`)
+      .set('Authorization', `Bearer ${cashierToken}`)
+      .send({
+        amount: '4500df0',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
   it('should let only a cashier debit a bank account', (done) => {
     chai.request(server)
       .post(`/api/v2/transactions/${accountnumb}/debit`)
@@ -513,6 +621,32 @@ describe('Debit a bank account', () => {
       })
       .end((err, res) => {
         expect(res).to.have.status(400);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+});
+describe('Get all accounts', () => {
+ 
+  it('should give an error when the token is not provided', (done) => {
+    chai.request(server)
+      .get('/api/v2/accounts?status=dormant')
+      .send({
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should retrieve notifications', (done) => {
+    chai.request(server)
+      .get('/api/v2/notifications')
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
         done();
       });

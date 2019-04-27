@@ -31,8 +31,6 @@ myRouter.get('/user/:emailAddress/accounts', authorization, employees.getUserAcc
 // staff accounts
 
 myRouter.post('/staff/auth/signup', authorization, employees.registerStaff);
-myRouter.post('/staff/auth/signin', employees.loginStaff);
-
 
 // transaction routes
 

@@ -16,8 +16,22 @@ const authStaff = {
           });
         }
         if (req.user.isadmin === 'true') {
+          if (!req.body.isAdmin) {
+            return res.status(400).json({
+              status: 400,
+              message: 'isAdmin field is required!',
+            });
+          }
+          if (req.body.isAdmin !== 'Yes' && req.body.isAdmin !== 'No') {
+            return res.status(400).json({
+              status: 400,
+              message: 'isAdmin should be Yes or No',
+            });
+          }
+          const trimEmail = (req.body.email).trim();
+          const validEmail = trimEmail.toLowerCase();
           const used = 'SELECT * FROM users WHERE (email= $1)';
-          const emailvalue = [req.body.email];
+          const emailvalue = [validEmail];
           const findStaff = await db.query(used, emailvalue);
           if (findStaff.rows[0]) {
             return res.status(409).json({
@@ -35,7 +49,7 @@ const authStaff = {
           const staff = {
             firstname: req.body.firstName,
             lastname: req.body.lastName,
-            email: req.body.email,
+            email: validEmail,
             password: hash,
             type: 'staff',
             isadmin: isAdmin,
@@ -47,10 +61,15 @@ const authStaff = {
             staff.password, staff.type, staff.isadmin];
           const result = await db.query(query, values);
           const token = jwt.sign({
-            email: req.body.email,
+            id: result.rows[0].id,
+            firstname: result.rows[0].firstname,
+            lastname: result.rows[0].lastname,
+            email: result.rows[0].email,
+            type: result.rows[0].type,
+            isadmin: result.rows[0].isadmin,
           }, process.env.JWTSECRETKEY,
           {
-            expiresIn: '24h',
+            expiresIn: '3h',
           });
           if (result) {
             const {
@@ -78,75 +97,30 @@ const authStaff = {
       });
     }
   },
-
-  async loginStaff(req, res) {
-    try {
-      if (validation.validateLogin(req, res)) {
-        const used = 'SELECT * FROM users WHERE (email= $1)';
-        const emailValue = [req.body.email];
-        const findUser = await db.query(used, emailValue);
-        if (findUser.rows < 1) {
-          return res.status(401).json({
-            status: 401,
-            message: 'Incorrect email or password',
-          });
-        }
-        bcrypt.compare(req.body.password, findUser.rows[0].password, (err, result) => {
-          if (result === false) {
-            return res.status(401).json({
-              status: 401,
-              message: 'Incorrect email or password',
-            });
-          }
-          const token = jwt.sign({
-            id: findUser.rows[0].id,
-            email: findUser.rows[0].email,
-            firstname: findUser.rows[0].firstname,
-            lastname: findUser.rows[0].lastname,
-            type: findUser.rows[0].type,
-            isadmin: findUser.rows[0].isadmin,
-          }, process.env.JWTSECRETKEY,
-          {
-            expiresIn: '24h',
-          });
-          const {
-            id, firstname, lastname, email, type, isadmin,
-          } = findUser.rows[0];
-          return res.status(200).json({
-            status: 200,
-            message: 'You have successfully log in Banka',
-            data: {
-              token, id, firstname, lastname, email, type, isadmin,
-            },
-          });
-        });
-      }
-    } catch (err) {
-      res.status(400).json({
-        status: 400,
-        message: err.message,
-      });
-    }
-  },
-
   async getAllAccounts(req, res) {
     const admin = 'SELECT * FROM users WHERE email = $1';
     const findAdmin = await db.query(admin, [req.user.email]);
     if (findAdmin.rowCount === 0) {
-      return res.status(400).json({
-        status: 400,
-        message: 'You do not have the right to view all bank accounts',
+      return res.status(403).json({
+        status: 403,
+        message: 'You do not have the right to view bank accounts',
       });
     }
 
     if (findAdmin.rows[0].isadmin !== 'true') {
-      return res.status(400).json({
-        status: 400,
-        message: 'You do not have the right to view all bank accounts',
+      return res.status(403).json({
+        status: 403,
+        message: 'You do not have the right to view bank accounts',
       });
     }
     if (req.query.status) {
       const { status } = req.query;
+      if (status !== 'draft' && status !== 'dormant' && status !== 'active') {
+        return res.status(400).json({
+          status: 400,
+          message: 'Account status must be active, dormant or draft!',
+        });
+      }
       const account = 'SELECT * FROM accounts WHERE status = $1';
       const query = await db.query(account, [status]);
       if (query.rowCount === 0) {
@@ -179,19 +153,19 @@ const authStaff = {
     const admin = 'SELECT * FROM users WHERE email = $1';
     const findAdmin = await db.query(admin, [req.user.email]);
     if (findAdmin.rowCount === 0) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(403).json({
+        status: 403,
         message: 'You do not have the right to view user bank accounts',
       });
     }
 
     if (findAdmin.rows[0].isadmin !== 'true') {
-      return res.status(400).json({
-        status: 400,
+      return res.status(403).json({
+        status: 403,
         message: 'You do not have the right to view user bank accounts',
       });
     }
-    const view = 'SELECT users.email,accounts.accountnumber,accounts.owner,accounts.createdon,accounts.type,accounts.status,accounts.balance FROM users INNER JOIN accounts ON accounts.owner= users.id AND email = $1';
+    const view = 'SELECT accounts.accountnumber,accounts.owner,accounts.createdon,accounts.type,accounts.status,accounts.balance FROM users INNER JOIN accounts ON accounts.owner= users.id AND email = $1';
     const value = await db.query(view, [emailAddress]);
     if (value.rowCount > 0) {
       return res.status(200).json({

@@ -16,5 +16,9 @@ if (process.env.NODEENV === 'TEST') {
     connectionString: process.env.DATABASETEST,
   });
 }
-
+if (process.env.NODEENV === 'PRODUCTION') {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_HEROKU,
+  });
+}
 export default pool;
