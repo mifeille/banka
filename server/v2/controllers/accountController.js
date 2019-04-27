@@ -72,6 +72,13 @@ const accounts = {
             message: 'Only an admin can activate or deactivate a Bank account',
           });
         }
+        const isValid = /^[0-9]+$/;
+        if (!isValid.test(accountNumber)) {
+          return res.status(404).json({
+            status: 404,
+            message: 'Bank account not found',
+          });
+        }
         const account = 'SELECT * FROM accounts WHERE accountnumber = $1';
         const findAccount = await db.query(account, [accountNumber]);
         if (findAccount.rowCount === 0) {
@@ -120,6 +127,13 @@ const accounts = {
     }
     if (findAdmin.rows[0].isadmin === 'true') {
       const { accountNumber } = req.params;
+      const isValid = /^[0-9]+$/;
+      if (!isValid.test(accountNumber)) {
+        return res.status(404).json({
+          status: 404,
+          message: 'Bank account not found',
+        });
+      }
       const account = 'SELECT * FROM accounts WHERE accountnumber = $1';
       const query = await db.query(account, [accountNumber]);
       if (query.rowCount === 0) {
@@ -155,7 +169,7 @@ const accounts = {
     const clientId = findClient.rows[0].id;
     const findAccount = 'SELECT * FROM accounts WHERE owner = $1';
     const allAccounts = await db.query(findAccount, [clientId]);
-    if (allAccounts.rows === 0) {
+    if (allAccounts.rowCount === 0) {
       return res.status(404).json({
         status: 404,
         message: 'No Bank account found, Create your first account now!',
