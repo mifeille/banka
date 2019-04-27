@@ -19,7 +19,7 @@ const adminToken = jwt.sign({
   lastname: 'Kabeho',
   email: process.env.EMAIL,
   type: 'staff',
-  isadmin: true,
+  isadmin: 'true',
 }, process.env.JWTSECRETKEY,
 {
   expiresIn: '3h',
