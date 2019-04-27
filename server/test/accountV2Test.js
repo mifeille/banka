@@ -1,6 +1,11 @@
 import chaiHttp from 'chai-http';
 import chai from 'chai';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 import server from '../server';
+import pool from '../v2/db/dbconnection';
+
+dotenv.config();
 
 
 let userToken; let accountnumb; let adminToken; let

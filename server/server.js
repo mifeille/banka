@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import v2Routes from './routes/v2Routes';
-import swaggerDocument from './swagger.json';
+import swaggerDocument from '../swagger.json';
 
 
 dotenv.config();
