@@ -10,8 +10,8 @@ dotenv.config();
 
 
 let userToken; let accountnumb; let
-  cashierToken; let account2;
-const adminToken = process.env.token;
+  cashierToken; let account2; let adminToken;
+const adminTokena = process.env.token;
 
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -128,12 +128,19 @@ describe('Bank account creation', () => {
 });
 
 describe('Bank account activation and deactivation', () => {
-  before((done) => {
-    const hash = bcrypt.hashSync(process.env.PASSWORD, 10);
-    const firstAdmin = 'INSERT INTO users (firstname,lastname,email,password,type,isadmin) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (email) DO NOTHING';
-    const value = ['Laetitia', 'Kabeho', process.env.EMAIL, hash, 'staff', 'true'];
-    pool.query(firstAdmin, value);
-    done();
+  it('It Should log in an admin with right signup credentials', (done) => {
+    chai.request(server)
+      .post('/api/v2/auth/signin')
+      .send({
+        email: process.env.EMAIL,
+        password: process.env.PASSWORD,
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        adminToken = res.body.data.token;
+        done();
+      });
   });
   it('It Should create a user with right signup credentials', (done) => {
     chai.request(server)
