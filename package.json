@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "NODEENV=TEST npm run dropTables && NODEENV=TEST npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=TEST nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
-    "dev": "NODEENV=DEV npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=DEV nodemon --exec babel-node server/server.js",
+    "start": "NODEENV=DEV npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=DEV nodemon --exec babel-node server/server.js",
     "build": "npm run clear && babel server --out-dir build",
-    "start": "npm run initialDb && npm run superUser && node build/server.js",
+    "starter": "node build/server.js",
     "clear": "rm -rf build",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",
     "initialDb": "NODEENV=TEST babel-node server/v2/db/createTables",
@@ -19,8 +19,12 @@
     "node": "11.14.0"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
@@ -30,15 +34,13 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.isempty": "^4.4.0",
     "moment": "^2.24.0",
+    "nodemon": "^1.18.10",
     "pg": "^7.10.0",
     "swagger-ui-express": "^4.0.2",
     "validator": "^10.11.0"
   },
   "devDependencies": {
     "@babel/node": "^7.2.2",
-    "@babel/core": "^7.4.0",
-    "@babel/cli": "^7.2.3",
-    "@babel/register": "^7.4.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
