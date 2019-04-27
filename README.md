@@ -2,7 +2,7 @@
 
 Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money.
 
-[![Build Status](https://travis-ci.org/mifeille/banka.svg?branch=develop)](https://travis-ci.org/mifeille/banka)  [![Coverage Status](https://coveralls.io/repos/github/mifeille/banka/badge.svg?)](https://coveralls.io/github/mifeille/banka?branch=develop)  [![Maintainability](https://api.codeclimate.com/v1/badges/6f9d176365640932903b/maintainability)](https://codeclimate.com/github/mifeille/banka/maintainability)
+[![Build Status](https://travis-ci.org/mifeille/banka.svg?branch=develop)](https://travis-ci.org/mifeille/banka)  [![Coverage Status](https://coveralls.io/repos/github/mifeille/banka/badge.svg?)](https://coveralls.io/github/mifeille/banka)  [![Maintainability](https://api.codeclimate.com/v1/badges/6f9d176365640932903b/maintainability)](https://codeclimate.com/github/mifeille/banka/maintainability)
 
 
 ### Features
