@@ -127,9 +127,9 @@ describe('Bank account creation', () => {
 
 describe('Bank account activation and deactivation', () => {
   before((done) => {
-    const hash = bcrypt.hashSync(process.env.PASSWORD_TEST, 10);
+    const hash = bcrypt.hashSync('kayitesire1!', 10);
     const firstAdmin = 'INSERT INTO users (firstname,lastname,email,password,type,isadmin) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (email) DO NOTHING';
-    const value = ['Aurore', 'Kayitesire', process.env.EMAIL_TEST, hash, 'staff', 'true'];
+    const value = ['Aurore', 'Kayitesire', 'kayitesire@banka.com', hash, 'staff', 'true'];
     pool.query(firstAdmin, value);
     done();
   });
@@ -137,8 +137,8 @@ describe('Bank account activation and deactivation', () => {
     chai.request(server)
       .post('/api/v2/auth/signin')
       .send({
-        email: process.env.EMAIL_TEST,
-        password: process.env.PASSWORD_TEST,
+        email: 'kayitesire@banka.com',
+        password: 'kayitesire1!',
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
