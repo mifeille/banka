@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "NODEENV=TEST npm run dropTables && NODEENV=TEST npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=TEST nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
-    "start": "NODEENV=DEV npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=DEV nodemon --exec babel-node server/server.js",
+    "start": "NODEENV=DEV npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=DEV npm run dropFkey && NODEENV=DEV nodemon --exec babel-node server/server.js",
     "build": "npm run clear && babel server --out-dir build",
     "starter": "NODEENV=PRODUCTION babel-node server/v2/db/createTables && NODEENV=PRODUCTION node build/server.js",
     "clear": "rm -rf build",
@@ -13,7 +13,8 @@
     "initialDb": "NODEENV=TEST babel-node server/v2/db/createTables",
     "superUser": "NODEENV=TEST babel-node server/v2/db/superUser",
     "initialDbTest": "NODEENV=TEST babel-node server/v2/db/createTables",
-    "dropTables": "NODEENV=TEST babel-node server/v2/db/dropTables"
+    "dropTables": "NODEENV=TEST babel-node server/v2/db/dropTables",
+    "dropFkey": "NODEENV=TEST babel-node server/v2/db/dropFk"
   },
   "engines": {
     "node": "11.14.0"
