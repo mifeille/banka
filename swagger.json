@@ -4,7 +4,7 @@
       "version": "2",
       "title": "Banka Application API Endpoints"
     },
-    "host": "localhost:3050",
+    "host": "https://bankamireille.herokuapp.com",
     "basePath": "/api/v2/",
     "securityDefinitions": {
       "Bearer": {
@@ -27,10 +27,10 @@
       "signup": {
         "type": "object",
         "properties" : {
-          "firstname": {
+          "firstName": {
               "type": "string"
           },
-          "lastname": {
+          "lastName": {
               "type": "string"
           },
           "email": {
@@ -47,10 +47,10 @@
     "staffsignup": {
         "type": "object",
         "properties" : {
-          "firstname": {
+          "firstName": {
               "type": "string"
           },
-          "lastname": {
+          "lastName": {
               "type": "string"
           },
           "email": {
@@ -62,7 +62,7 @@
           "confirmPassword": {
               "type": "string"
           },
-          "isadmin": {
+          "isAdmin": {
               "type": "string"
           }
         }
@@ -197,35 +197,6 @@
         }
       }
     },
-    "/staff/auth/signin": {
-      "post": {
-        "tags": [
-          "Staff"
-        ],
-        "description": "Create Bank account",
-        "parameters": [
-           {
-            "name":"log in",
-            "in": "body",
-            "description" :"Staff log in",
-            "schema": {
-                "$ref": "#/definitions/signin"
-          }
-        }
-      ],
-      "produces": [
-        "application/json"
-      ],
-      "responses": {
-        "200": {
-          "description": "Bank account created successfully",
-          "schema": {
-            "$ref": "#/definitions/signin"
-          }
-        }
-      }
-    }
-  },
   "/staff/auth/signup": {
     "post": {
       "tags": [

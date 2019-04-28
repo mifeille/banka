@@ -53,7 +53,6 @@ const authUsers = {
         {
           expiresIn: '3h',
         });
-        console.log(result.rows);
         if (result) {
           const {
             id, firstname, lastname, email, type,
