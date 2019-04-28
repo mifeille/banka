@@ -1,4 +1,5 @@
 import moment from 'moment';
+import validator from 'validator';
 import db from '../db/dbconnection';
 
 const transaction = {
@@ -259,7 +260,9 @@ const transaction = {
         message: 'Transaction not found',
       });
     }
-    if (typeof transactionId !== 'number') {
+    if (!validator.isLength(transactionId, {
+      min: 0, max: 8,
+    })) {
       return res.status(404).json({
         status: 404,
         message: 'Transaction not found',

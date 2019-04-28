@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "NODEENV=TEST npm run dropTables && NODEENV=TEST npm run initialDb && NODEENV=TEST npm run superUser && NODEENV=TEST nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill server/test/*.js --exit",
-    "start": "npm run initialDb && npm run superUser && nodemon --exec babel-node server/server.js",
+    "start": "NODEENV=DEV npm run initialDb && NODEENV=DEV npm run superUser && NODEENV=DEV npm run dropFkey && NODEENV=DEV nodemon --exec babel-node server/server.js",
     "build": "npm run clear && babel server --out-dir build",
     "starter": "NODEENV=PRODUCTION babel-node server/v2/db/createTables && NODEENV=PRODUCTION node build/server.js",
     "clear": "rm -rf build",
