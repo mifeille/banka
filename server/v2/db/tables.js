@@ -12,7 +12,7 @@ const registerClientTable = `CREATE TABLE IF NOT EXISTS users (
 const registerAccountTable = `CREATE TABLE IF NOT EXISTS accounts (
         accountnumber BIGINT PRIMARY KEY,
         createdon TIMESTAMP NOT NULL,
-        owner INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+        owner INTEGER NOT NULL,
         type VARCHAR(10) NOT NULL,
         status VARCHAR(128) NOT NULL,
         openingbalance DECIMAL(12,2) NOT NULL,
