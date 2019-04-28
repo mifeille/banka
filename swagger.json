@@ -195,6 +195,31 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "View all Bank accounts",
+        "parameters": [
+          {
+            "name":"Authorization",
+            "in": "header",
+            "description" :"The admin token",
+            "required":true
+            
+          } 
+        ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+                "description": "The list of all Bank accounts"
+              
+            }
+          }
+     
       }
     },
   "/staff/auth/signup": {
@@ -509,34 +534,6 @@
             
           }
         }
-     
-      }
-    },
-
-    "/accounts": {
-      "get": {
-        "tags": [
-          "Accounts"
-        ],
-        "description": "View all Bank accounts",
-        "parameters": [
-          {
-            "name":"Authorization",
-            "in": "header",
-            "description" :"The admin token",
-            "required":true
-            
-          } 
-        ],
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-                "description": "The list of all Bank accounts"
-              
-            }
-          }
      
       }
     },
