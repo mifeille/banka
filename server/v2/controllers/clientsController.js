@@ -44,15 +44,16 @@ const authUsers = {
         const result = await db.query(query, values);
         const token = jwt.sign({
           id: result.rows[0].id,
-          email: result.rows[0].email,
           firstname: result.rows[0].firstname,
           lastname: result.rows[0].lastname,
+          email: result.rows[0].email,
           type: result.rows[0].type,
           isadmin: result.rows[0].isadmin,
         }, process.env.JWTSECRETKEY,
         {
           expiresIn: '3h',
         });
+        console.log(result.rows);
         if (result) {
           const {
             id, firstname, lastname, email, type,

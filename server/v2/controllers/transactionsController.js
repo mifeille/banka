@@ -58,7 +58,7 @@ const transaction = {
       if (!isValidAmount.test(req.body.amount)) {
         return res.status(400).json({
           status: 400,
-          message: 'Write the amount in the right format',
+          message: 'You cannot credit an account with a negative value or with caracters',
         });
       }
       const findAccount = await db.query(account, [accountNumb]);
@@ -151,7 +151,7 @@ const transaction = {
       if (!isValidAmount.test(req.body.amount)) {
         return res.status(400).json({
           status: 400,
-          message: 'Write the amount in the right format',
+          message: 'You cannot debit an account with a negative value or with caracters',
         });
       }
 
@@ -221,13 +221,7 @@ const transaction = {
         message: 'Account not found!',
       });
     }
-    if (findAccount.rows[0].owner !== req.user.id) {
-      return res.status(403).json({
-        status: 403,
-        message: 'You do not have the right to view transactions on this account!',
-      });
-    }
-    if (findAccount.rows[0].owner !== req.user.id) {
+    if (findAccount.rows[0].owner !== req.user.id && req.user.type !== 'staff') {
       return res.status(403).json({
         status: 403,
         message: 'You do not have the right to view transactions on this account!',
@@ -260,6 +254,12 @@ const transaction = {
     const { transactionId } = req.params;
     const isValid = /^[0-9]+$/;
     if (!isValid.test(transactionId)) {
+      return res.status(404).json({
+        status: 404,
+        message: 'Transaction not found',
+      });
+    }
+    if (typeof transactionId !== 'number') {
       return res.status(404).json({
         status: 404,
         message: 'Transaction not found',
