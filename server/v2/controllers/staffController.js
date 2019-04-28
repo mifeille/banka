@@ -22,10 +22,12 @@ const authStaff = {
               message: 'isAdmin field is required!',
             });
           }
-          if (req.body.isAdmin !== 'Yes' && req.body.isAdmin !== 'No') {
+          const staffAdmin = req.body.isAdmin;
+          const lowerAdmin = staffAdmin.toLowerCase();
+          if (lowerAdmin !== 'yes' && lowerAdmin !== 'no') {
             return res.status(400).json({
               status: 400,
-              message: 'isAdmin should be Yes or No',
+              message: 'isAdmin should be yes or no',
             });
           }
           const trimEmail = (req.body.email).trim();
@@ -40,7 +42,7 @@ const authStaff = {
             });
           }
           let isAdmin = false;
-          if (req.body.isAdmin === 'Yes') {
+          if (lowerAdmin === 'yes') {
             isAdmin = true;
           } else {
             isAdmin = false;

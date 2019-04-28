@@ -11,19 +11,19 @@ const accounts = {
       if (validation.validateAccount(req, res)) {
         const user = 'SELECT * FROM users WHERE email = $1';
         const value = [req.user.email];
-        const { rows } = await db.query(user, value);
+        const userFound = await db.query(user, value);
 
-        if (!rows) {
+        if (userFound.rowCount === 0) {
           return res.status(404).json({
             status: 404,
             message: 'Create a user account first!',
           });
         }
-        const bankAccount = `${rows[0].id}${Date.now()}`;
+        const bankAccount = `${userFound.rows[0].id}${Date.now()}`;
         const account = {
           accountnumber: parseInt(bankAccount, 10),
           createdon: moment(new Date()),
-          owner: rows[0].id,
+          owner: userFound.rows[0].id,
           type: req.body.type,
           status: 'draft',
           openingbalance: 0,
@@ -37,7 +37,7 @@ const accounts = {
         const {
           accountnumber, email, status, type, openingbalance,
         } = account;
-        const firstName = rows[0].firstname; const lastName = rows[0].lastname;
+        const firstName = userFound.rows[0].firstname; const lastName = userFound.rows[0].lastname;
         return res.status(201).json({
           status: 201,
           message: 'Bank account created successfully',
