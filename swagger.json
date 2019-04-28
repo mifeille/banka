@@ -6,13 +6,6 @@
     },
     "host": "https://bankamireille.herokuapp.com",
     "basePath": "/api/v2/",
-    "securityDefinitions": {
-      "Bearer": {
-        "type": "apiKey",
-        "name": "Authorization",
-        "in": "header"
-      }
-    },
     "schemes": [
         "http"
       ],
@@ -86,7 +79,7 @@
           }
         }
       },
-      "accountstatus": {
+      "accountStatus": {
         "type": "object",
         "properties" : {
           "status": {
@@ -114,7 +107,7 @@
             {
               "name": "user",
               "in": "body",
-              "description": "User that we want to create",
+              "description": "User account creation",
               "schema": {
                 "$ref": "#/definitions/signup"
               }
@@ -125,10 +118,7 @@
           ],
           "responses": {
             "201": {
-              "description": "Welcome to Banka, Your user account has been created",
-              "schema": {
-                "$ref": "#/definitions/signup"
-              }
+              "description": "Welcome to Banka, Your user account has been created"
             }
           }
         }
@@ -143,7 +133,7 @@
           {
             "name": "user",
             "in": "body",
-            "description": "User who wants to log in",
+            "description": "User who wants to log in Banka Application",
             "schema": {
               "$ref": "#/definitions/signin"
             }
@@ -154,10 +144,7 @@
         ],
         "responses": {
           "200": {
-            "description": "You have successfully log in Banka",
-            "schema": {
-              "$ref": "#/definitions/signin"
-            }
+            "description": "You have successfully log in Banka"
           }
         }
       }
@@ -189,10 +176,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Bank account created successfully",
-            "schema": {
-              "$ref": "#/definitions/account"
-            }
+            "description": "Bank account created successfully"
           }
         }
       },
@@ -273,7 +257,7 @@
           {
             "name":"Authorization",
             "in": "header",
-            "description" :"Cashier token",
+            "description" :"Admin token",
             "required":true
           },
           {
@@ -281,7 +265,7 @@
             "in": "body",
             "description" :"Bank Account status(active or dormant)",
             "schema": {
-              "$ref": "#/definitions/accountstatus"
+              "$ref": "#/definitions/accountStatus"
             }
           }
           ],
@@ -290,10 +274,7 @@
           ],
           "responses": {
             "200": {
-              "description": "Operation Successful",
-              "schema": {
-                "$ref": "#/definitions/accountstatus"
-              }
+              "description": "Operation Successful"
             }
           }
         }
@@ -547,7 +528,7 @@
             {
                 "name":"status",
                 "in": "query",
-                "description" :"The admin token",
+                "description" :"The status",
                 "required":true
               
             },
