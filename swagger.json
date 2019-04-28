@@ -7,7 +7,9 @@
     "host": "https://bankamireille.herokuapp.com",
     "basePath": "/api/v2/",
     "schemes": [
-        "http"
+        "http",
+        "https"
+
       ],
       
       "consumes": [
