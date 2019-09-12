@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import v2Routes from './routes/v2Routes';
 import swaggerDocument from '../swagger.json';
+import globalMiddleware from './v2/middlewares/globalMiddleware';
 
 
 dotenv.config();
@@ -14,6 +15,7 @@ const app = express();
 app.use('/banka-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+globalMiddleware(app);
 
 
 app.use('/api/v2/', v2Routes);

@@ -64,9 +64,9 @@ export default class validateUser {
     })) {
       throw Error('Password should be at least 6 characters');
     }
-    if (!req.body.confirmPassword) {
-      throw Error('Please confirm your password');
-    }
+    // if (!req.body.confirmPassword) {
+    //   throw Error('Please confirm your password');
+    // }
 
     if (!validator.equals(req.body.password, req.body.confirmPassword)) {
       throw Error('Passwords do not match');

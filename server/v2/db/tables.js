@@ -1,6 +1,6 @@
 const registerClientTable = `CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        firstName VARCHAR(128) NOT NULL,
+        firstname VARCHAR(128) NOT NULL,
         lastname VARCHAR(128) NOT NULL,
         email VARCHAR(128) NOT NULL UNIQUE,
         password VARCHAR(128) NOT NULL,

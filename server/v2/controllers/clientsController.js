@@ -15,6 +15,7 @@ const authUsers = {
   },
 
   async registerUser(req, res) {
+    console.log(req.body);
     try {
       if (validation.validateSignup(req, res)) {
         const trimEmail = (req.body.email).trim();
